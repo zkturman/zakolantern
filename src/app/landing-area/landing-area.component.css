@@ -1,4 +1,4 @@
-.landing-image{
+.landing-image-area{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -11,15 +11,65 @@
     flex-direction: column;
 }
 
+.is-phone-portrait .landing-image{
+  width: 80vw;
+}
+
+.landing-image{
+    width: 40vw;
+}
+
+.is-phone-portrait .entry-password-prompt{
+    font-size: 16px;
+}
+
 .entry-password-prompt{
-    color: white;
+    color: #8afaf8;
     font-size: 20px;
     font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+}
+
+.passcode-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-betweeen;
+}
+
+.is-phone-portrait .entry-password{
+    width: 6vw;
 }
 
 .entry-password{
-    width: 30vw;
+    width: 5vw;
     height: 40px;
     font-size: 20pt;
+    font-family: 'Courier New', Courier, monospace;
     text-align: center;
+    margin: 2px;
+    border-width: 1px;
+    border-radius: 4px;
+    caret-color: transparent;
+    color: #e60132;
+    font-weight: bold;
+    background-color: #8afaf8;
+}
+
+.entry-password:focus{
+    outline: none !important;
+    border-width: 2px;
+    border-color: #e60132;
+}
+
+.entry-password::selection{
+    color: #e60132;
+    font-weight: 900;
+    font-size: 25pt;
+    background-color: #8afaf8;
+}
+
+.entry-password:disabled{
+    border-color: #8afaf8;
+    border-width:1px;
+    background-color: black;
 }

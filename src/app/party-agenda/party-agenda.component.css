@@ -6,3 +6,59 @@ p, li, h1, h2, h3{
 h1, h2, h3{
     text-align: center;
 }
+
+.background-skelly{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    position: fixed;
+    z-index: -1;
+    opacity: .2;
+}
+
+.background-skelly img{
+    max-width: 80%;
+    align-self: center;
+    justify-self: center;
+    overflow: hidden;
+}
+
+.agenda-parent{
+    margin: 10px;
+}
+
+.party-title{
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    opacity: 1;
+    background-color: unset;
+    background-image: linear-gradient(to bottom right, #e60132, #8e0727);
+    border-radius: 4px;
+}
+
+.act-title{
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    opacity: 1;
+    background-color: unset;
+    background-image: linear-gradient(to bottom right, #e60132, #8e0727);
+    border-radius: 4px;
+}
+
+.act-title h2{
+    font-size: 30px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.act-title h3{
+    font-size: 15px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}

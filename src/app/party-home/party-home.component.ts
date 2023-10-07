@@ -14,8 +14,23 @@ export class PartyHomeComponent implements OnInit {
 
   enterSite(canEnter: boolean){
     if(canEnter){
-      document.getElementById("passcode-entry").classList.add("completed-passcode");
-      console.log("Entering website");
+      var entryElement = document.getElementById("passcode-entry");
+      entryElement.classList.add("completed-passcode");
+      entryElement.addEventListener("transitionend", () => this.loadAgenda())
     }
+  }
+
+  hidePasscode(){
+    var entryElement = document.getElementById("passcode-entry");
+    entryElement.classList.add("disabled");
+  }
+
+  loadAgenda(){
+    this.hidePasscode();
+    window.scroll(0,0);
+    var agendaElement = document.getElementById("party-agenda");
+    agendaElement.classList.remove("disabled");
+    agendaElement.classList.add("party-agenda");
+    agendaElement.classList.add("agenda-started");
   }
 }

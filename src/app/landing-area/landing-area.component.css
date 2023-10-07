@@ -23,7 +23,6 @@
 
 .is-phone-portrait .entry-password-prompt{
     font-size: 16px;
-    color: red;
 }
 
 .entry-password-prompt{
@@ -40,11 +39,11 @@
 }
 
 .is-phone-portrait .entry-password{
-    width: 6vw;
+    width: 22px;
 }
 
 .entry-password{
-    width: 5vw;
+    width: 60px;
     height: 40px;
     font-size: 20pt;
     font-family: 'Courier New', Courier, monospace;

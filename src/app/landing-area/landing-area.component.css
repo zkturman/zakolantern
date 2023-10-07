@@ -39,7 +39,7 @@
 }
 
 .is-phone-portrait .entry-password{
-    width: 22px;
+    width: 25px;
 }
 
 .entry-password{
@@ -55,6 +55,7 @@
     color: #e60132;
     font-weight: bold;
     background-color: #8afaf8;
+    padding: 0px;
 }
 
 .entry-password:focus{

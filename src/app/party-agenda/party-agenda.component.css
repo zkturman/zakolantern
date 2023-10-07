@@ -1,0 +1,8 @@
+p, li, h1, h2, h3{
+    color: #8afaf8;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+h1, h2, h3{
+    text-align: center;
+}

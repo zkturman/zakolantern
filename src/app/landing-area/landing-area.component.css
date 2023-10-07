@@ -23,6 +23,7 @@
 
 .is-phone-portrait .entry-password-prompt{
     font-size: 16px;
+    color: red;
 }
 
 .entry-password-prompt{

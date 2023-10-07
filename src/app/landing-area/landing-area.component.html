@@ -7,7 +7,7 @@
         <div class="passcode-char-container" *ngFor="let item of this.passcode; let i = index; first as isFirst">
             <input *ngIf="isFirst; else disabledInput" id="char-{{i}}" type="text" class="entry-password" (input)="onCodeInput($event, i)" (keydown)="this.onBackspace($event, i)" maxlength="1">
             <ng-template #disabledInput>
-                <input id="char-{{i}}" type="text" class="entry-password" (input)="onCodeInput($event, i)" (keydown)="onBackspace($event, i)" maxlength="1" disabled>
+                <input id="char-{{i}}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" type="text" class="entry-password" (input)="onCodeInput($event, i)" (keydown)="onBackspace($event, i)" maxlength="1" disabled>
             </ng-template>
         </div>
     </div>

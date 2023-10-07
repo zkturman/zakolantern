@@ -46,8 +46,8 @@ export class LandingAreaComponent implements OnInit {
   onBackspace(event: any, index: number){
     var previousIndex: number = index - 1;
     var currentElement = document.getElementById("char-" + index.toString()) as any;
-    var shouldGoBack = event.key === 'Backspace';
-     if (shouldGoBack && previousIndex >= 0){
+    var shouldGoToPreviousElement = event.key === 'Backspace' && (currentElement.value.toUpperCase() === this.passcode[index] || currentElement.value === "");
+     if (shouldGoToPreviousElement && previousIndex >= 0){
       currentElement.value = "";
       currentElement.disabled = true;
       var previousElement = document.getElementById("char-" + previousIndex.toString()) as any; 

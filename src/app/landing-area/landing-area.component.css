@@ -4,6 +4,8 @@
     justify-content: center;
     height: 100vh;
     width: 100vw;
+    max-width: 100%;
+    overflow: hidden;
     padding: 0px;
     margin:0px;
     border-color: black;
@@ -33,7 +35,7 @@
 .passcode-container{
     display: flex;
     flex-direction: row;
-    justify-content: space-betweeen;
+    justify-content: space-between;
 }
 
 .is-phone-portrait .entry-password{

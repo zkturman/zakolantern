@@ -1,4 +1,4 @@
-p, li, h1, h2, h3{
+p, li, h1, h2, h3, a{
     color: #8afaf8;
     font-family: 'Courier New', Courier, monospace;
 }
@@ -61,4 +61,21 @@ h1, h2, h3{
     font-size: 15px;
     margin-top: 0px;
     margin-bottom: 0px;
+}
+
+.button-container{
+    display: flex;
+    justify-content: center;
+}
+
+.game-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 60px;
+    border-radius: 4px;
+    font-size: 30px;
+    text-decoration: none;
+    background-image: linear-gradient(to bottom right, #e60132, #8e0727);
 }

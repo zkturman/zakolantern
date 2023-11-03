@@ -65,7 +65,9 @@ h1, h2, h3{
 
 .button-container{
     display: flex;
+    flex-grow: 1;
     justify-content: center;
+    align-items: flex-end;
 }
 
 .game-button{
@@ -74,8 +76,14 @@ h1, h2, h3{
     align-items: center;
     width: 250px;
     height: 60px;
+    margin: 10px;
     border-radius: 4px;
     font-size: 30px;
+    font-weight: 700;
     text-decoration: none;
     background-image: linear-gradient(to bottom right, #e60132, #8e0727);
+}
+
+.game-button:hover{
+    background-image: linear-gradient(to bottom right, #8e0727, #e60132);
 }

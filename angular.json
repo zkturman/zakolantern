@@ -61,18 +61,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "zakolantern:build"
+            "buildTarget": "zakolantern:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "zakolantern:build:production"
+              "buildTarget": "zakolantern:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "zakolantern:build"
+            "buildTarget": "zakolantern:build"
           }
         },
         "test": {

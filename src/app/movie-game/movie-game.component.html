@@ -1,33 +1,8 @@
 <div class="game-parent">
     <div class="game-container"></div>
-    <div class="button-container">
-        <div class="button-section">
-            <h2 class="button-label">
-                MOVE
-            </h2>
-            <div class="direction-buttons">
-                <div class="button-image">
-                    <button></button>
-                    <div class="button-shadow"></div>
-                    <div class="arrow-image left-arrow"></div>
-                </div>
-                <div class="button-image">
-                    <button></button>
-                    <div class="button-shadow"></div>
-                    <div class="arrow-image right-arrow"></div>
-                </div>
-            </div>
-        </div>
-        <div class="button-section">
-            <h2 class="button-label">
-                FIRE
-            </h2>
-            <div class="fire-button">
-                <div class="button-image">
-                    <button></button>
-                    <div class="button-shadow"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <app-game-buttons id="game-buttons" 
+        (moveActionEvent)="this.movePlayer($event)"
+        (fireActionEvent)="this.fireLaser()"
+        >
+    </app-game-buttons>
 </div>

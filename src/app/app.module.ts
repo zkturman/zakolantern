@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PartyHomeComponent } from './party-home/party-home.component';
 import { PartyAgendaComponent } from './party-agenda/party-agenda.component';
 import { MovieGameComponent } from './movie-game/movie-game.component';
+import { GameButtonsComponent } from './movie-game/game-buttons/game-buttons.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,7 @@ import { MovieGameComponent } from './movie-game/movie-game.component';
     LandingAreaComponent,
     PartyHomeComponent,
     PartyAgendaComponent,
-    MovieGameComponent
+    MovieGameComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,7 +24,8 @@ import { MovieGameComponent } from './movie-game/movie-game.component';
       {path: 'home', component: PartyHomeComponent},
       {path: 'game', component: MovieGameComponent},
       {path: '**', redirectTo: '/home', pathMatch: 'full'}
-    ])
+    ]),
+    GameButtonsComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

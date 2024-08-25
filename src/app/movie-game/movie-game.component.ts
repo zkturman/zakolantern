@@ -13,6 +13,7 @@ export class MovieGameComponent implements OnInit, AfterViewInit {
   private enemies: PIXI.Sprite[] = [];
   private playerImage: PIXI.Texture;
   private player: PIXI.Sprite;
+  private playerDirection: number = 0;
 
   
   constructor() { 
@@ -79,11 +80,35 @@ export class MovieGameComponent implements OnInit, AfterViewInit {
     this.player.y = this.app.screen.height - 50;
 
     this.app.stage.addChild(this.player);
+    this.app.ticker.add((time) => {
+      if (!this.playerWithinBound()){
+        this.playerDirection = 0;
+      }
+      this.player.x += 0.1 * time.deltaTime * this.playerDirection * 5;
+    });
   }
 
   movePlayer(value){
-    console.log('move player ' + value);
+    this.playerDirection = value;
+    if (!this.playerWithinBound()){
+      this.playerDirection = 0;
+    }
   }
+
+  playerWithinBound(): boolean{
+    if (this.playerDirection > 0){
+      if (this.player.x + (this.player.width / 2) >= this.app.canvas.width){
+        return false;
+      }
+    }
+    else if (this.playerDirection < 0){
+      if (this.player.x - (this.player.width / 2) <= 0){
+        return false;
+      }
+    }
+    return true;
+  }
+
 
   fireLaser(){
     console.log('laser fired!');

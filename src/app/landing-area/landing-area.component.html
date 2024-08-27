@@ -1,14 +1,47 @@
   <div class="landing-image-area" [ngClass]="{'is-phone-portrait' : this.deviceSize.getIsPhonePortrait()}">
-    <img class="landing-image" src="../assets/IntroSkelly.gif" alt="intro image">
-    <p class="entry-password-prompt">
-        Enter the author of the prophecies: 
-    </p>
-    <div class="passcode-container">
-        <div class="passcode-char-container" *ngFor="let item of this.passcode; let i = index; first as isFirst">
-            <input *ngIf="isFirst; else disabledInput" id="char-{{i}}" autocomplete="one-time-code" autocapitalize="off" type="text" class="entry-password" (input)="onCodeInput($event, i)" (keydown)="this.onBackspace($event, i)" maxlength="1">
-            <ng-template #disabledInput>
-                <input id="char-{{i}}" autocomplete="one-time-code" autocapitalize="off" type="text" class="entry-password" (input)="onCodeInput($event, i)" (keydown)="onBackspace($event, i)" maxlength="1" disabled>
-            </ng-template>
+    <div class="prompt-container">
+        <p class="entry-password-prompt">
+            tick... tock... 
+        </p>
+        <p class="entry-password-prompt">
+            tick... tock... 
+        </p>
+        <p class="entry-password-prompt">
+            do you know the code? 
+        </p>
+    </div>
+    <div class="button-container">
+        <div class="button-section">
+            <div class="direction-buttons">
+                <div class="button-image">
+                    <button id="up-entry-arrow"></button>
+                    <div class="button-shadow"></div>
+                    <div class="arrow-image up-arrow"></div>
+                </div>
+            </div>
+            <div class="direction-buttons">
+                <div class="button-image">
+                    <button id="left-entry-arrow"></button>
+                    <div class="button-shadow"></div>
+                    <div class="arrow-image left-arrow"></div>
+                </div>
+                <div class="button-image">
+                    <button id="right-entry-arrow"></button>
+                    <div class="button-shadow"></div>
+                    <div class="arrow-image right-arrow"></div>
+                </div>
+            </div>
+            <div class="direction-buttons">
+                <div class="button-image">
+                    <button id="down-entry-arrow"></button>
+                    <div class="button-shadow"></div>
+                    <div class="arrow-image down-arrow"></div>
+                </div>
+            </div>
+            <div class="button-background"></div>
         </div>
+    </div>
+    <div id="answer-container" class="answer-container">
+        <span *ngFor="let item of this.userCode; index as i" class="arrow-answer {{this.userCode[i]}}-arrow"></span>
     </div>
 </div>

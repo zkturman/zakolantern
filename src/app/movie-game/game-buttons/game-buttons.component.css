@@ -30,6 +30,7 @@
 
 button{
     background-image: radial-gradient(darkred 50%, red);
+    background-color: darkred;
     color: white;
     font-weight: bold;
     height: 75px;

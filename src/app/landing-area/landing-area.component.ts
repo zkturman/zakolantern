@@ -8,59 +8,77 @@ import { DeviceSizeFinderService } from '../device-size-finder.service';
   styleUrls: ['./landing-area.component.css']
 })
 export class LandingAreaComponent implements OnInit {
-  passcode: Array<string> = [
-    "D",
-    "O",
-    "O",
-    "M",
-    "W",
-    "E",
-    "A",
-    "V",
-    "E",
-    "R"
+  private answerContainerElement: Element;
+  private passcode: Array<string> = [
+    'up',
+    'up',
+    'up',
+    'up',
+    'up',
+    'up',
+    'up',
+    'up'
   ];
+  userCode: Array<string> = [];
 
   @Output() passcodeCompleteEvent = new EventEmitter<boolean>();
 
   constructor(public deviceSize: DeviceSizeFinderService) { }
 
   ngOnInit(): void {
+    let upArrow = document.getElementById('up-entry-arrow');
+    let leftArrow = document.getElementById('left-entry-arrow');
+    let rightArrow = document.getElementById('right-entry-arrow');
+    let downArrow = document.getElementById('down-entry-arrow');
+    this.answerContainerElement = document.getElementById('answer-container');
+    document.getElementsByClassName('button-container')[0].addEventListener('contextmenu', (event) => {event.preventDefault(); return false;})
+    upArrow.addEventListener('mousedown', () => this.arrowButtonDown(null, 'up'));
+    upArrow.addEventListener('touchstart', (event) => {this.arrowButtonDown(event, 'up');});
+    upArrow.addEventListener('touchend', (event) => {this.arrowButtonTouchEnd(event);});    
+    leftArrow.addEventListener('mousedown', () => this.arrowButtonDown(null, 'left'));
+    leftArrow.addEventListener('touchstart', (event) => {this.arrowButtonDown(event, 'left');});
+    leftArrow.addEventListener('touchend', (event) => {this.arrowButtonTouchEnd(event);});
+    rightArrow.addEventListener('mousedown', () => this.arrowButtonDown(null, 'right'));
+    rightArrow.addEventListener('touchstart', (event) => {this.arrowButtonDown(event, 'right');});
+    rightArrow.addEventListener('touchend', (event) => {this.arrowButtonTouchEnd(event);});
+    downArrow.addEventListener('mousedown', () => this.arrowButtonDown(null, 'down'));
+    downArrow.addEventListener('touchstart', (event) => {this.arrowButtonDown(event, 'down');});
+    downArrow.addEventListener('touchend', (event) => {this.arrowButtonTouchEnd(event);});
+
   }
 
-  ngAfterViewInit(): void{
-    document.getElementById("char-0").focus();
+  private arrowButtonDown(event: any, arrowKey: string){
+    event?.preventDefault();
+    event?.target.classList.add('active');
+    this.userCode.push(arrowKey);
+    if (this.userCode.length === this.passcode.length){
+      this.evaluateCode();
+      this.userCode = [];
+    }
   }
 
-  onCodeInput(event: any, index: number){
-    if (this.passcode[index] == event.target.value.toUpperCase()){
-      if (index < this.passcode.length - 1){
-        this.focusNextElement(index);
+  private arrowButtonTouchEnd(event: any){
+    event?.preventDefault();
+    event?.target.classList.remove('active');
+  }
+
+  private evaluateCode(){
+    if (this.userCode.length === this.passcode.length){
+      let i = 0;
+      let isMatch = true;
+      while (i < this.passcode.length && isMatch){
+        if (this.userCode[i] !== this.passcode[i]){
+          isMatch = false;
+        }
+        i++;
       }
-      if (index == this.passcode.length - 1){
+      if (isMatch){
         this.passcodeCompleteEvent.emit(true);
+        console.log('woohoo');
+      }
+      else{
+        console.log('failure');
       }
     }
   }
-
-  onBackspace(event: any, index: number){
-    var previousIndex: number = index - 1;
-    var currentElement = document.getElementById("char-" + index.toString()) as any;
-    var shouldGoToPreviousElement = event.key === 'Backspace' && (currentElement.value.toUpperCase() === this.passcode[index] || currentElement.value === "");
-     if (shouldGoToPreviousElement && previousIndex >= 0){
-      currentElement.value = "";
-      currentElement.disabled = true;
-      var previousElement = document.getElementById("char-" + previousIndex.toString()) as any; 
-      previousElement.focus();
-      previousElement.select();
-    }
-
-  }
-
-  focusNextElement(currentIndex: number){
-    var nextIndex: number = currentIndex + 1;
-    (document.getElementById("char-" + nextIndex.toString()) as any).disabled = false;
-    document.getElementById("char-" + nextIndex.toString()).focus();
-  }
-
 }

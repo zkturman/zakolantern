@@ -26,3 +26,219 @@
 .agenda-started{
     opacity: 1;
 }
+
+.landing-image-area{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    max-width: 100%;
+    overflow: hidden;
+    padding: 0px;
+    margin:0px;
+    border-color: black;
+    background-color: black;
+    flex-direction: column;
+    z-index: -2;
+}
+
+.is-phone-portrait .landing-image{
+  width: 80vw;
+}
+
+.landing-image{
+    width: 40vw;
+}
+
+.is-phone-portrait .entry-password-prompt{
+    font-size: 20px;
+}
+
+.entry-password-prompt{
+    color: white;
+    font-size: 28px;
+    font-weight: bolder;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+}
+
+.passcode-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.is-phone-portrait .entry-password{
+    width: 25px;
+}
+
+.entry-password{
+    width: 60px;
+    height: 40px;
+    font-size: 20pt;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    margin: 2px;
+    border-width: 1px;
+    border-radius: 4px;
+    caret-color: transparent;
+    color: #e60132;
+    font-weight: bold;
+    background-color: #8afaf8;
+    padding: 0px;
+}
+
+.entry-password:focus{
+    outline: none !important;
+    border-width: 2px;
+    border-color: #e60132;
+}
+
+.entry-password::selection{
+    color: #e60132;
+    font-weight: 900;
+    font-size: 25pt;
+    background-color: #8afaf8;
+}
+
+.entry-password:disabled{
+    border-color: #8afaf8;
+    border-width:1px;
+    background-color: black;
+}
+
+
+.button-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width:450px;
+    padding: 10px;
+}
+
+
+.button-section{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 300px;
+}
+
+
+.direction-buttons{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding: 0px 15px 0px 15px;
+}
+
+.button-image{
+    height: 75px;
+}
+
+button{
+    background-image: radial-gradient(darkred 50%, red);
+    color: white;
+    background-color: darkred;
+    font-weight: bold;
+    height: 75px;
+    width: 75px;
+    border-radius: 75px;
+    border: solid red 4px;
+    z-index: 2;
+    position: relative;
+}
+
+.button-shadow{
+    position: relative;
+    background-color: rgb(2, 2, 2);
+    border-radius: 75px;
+    height: 75px;
+    width: 75px;
+    top: -73px;
+    left: 3px;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+}
+
+.arrow-image{
+    position: relative;
+    background-size: contain;
+    height: 45px;
+    width: 45px;
+    top: -135px;
+    left: 15px;
+    margin: 0;
+    padding: 0;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.left-arrow{
+    background-image: url(../../assets/arrow-left-icon.png);
+}
+
+.right-arrow{
+    background-image: url(../../assets/arrow-right-icon.png);
+}
+
+.up-arrow{
+    background-image: url(../../assets/arrow-up-icon.png);
+}
+
+.down-arrow{
+    background-image: url(../../assets/arrow-down-icon.png);
+}
+
+@media(hover: hover){
+    button:hover{
+        background-image: none;
+    }
+}
+
+button:active, button.active{
+    background-image: radial-gradient(rgb(112, 0, 0) 20%, darkred);
+    border: solid rgb(114, 0, 5) 4px;
+}
+
+.button-label{
+    color: white;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+}
+
+.button-background{
+    position: absolute;
+    background-image: radial-gradient(rgb(15, 15, 15) 60%, grey);
+    border-radius: 300px;
+    height: 300px;
+    width: 300px;
+    margin: 0;
+    padding: 0;
+    z-index: 0;
+}
+
+.arrow-answer{
+    position: relative;
+    background-size: contain;
+    height: 40px;
+    min-height: 40px;
+    width: 40px;
+    min-width: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+.answer-container{
+    display: flex;
+    justify-content: left;
+    padding: 5vh;
+    width: 100vw;
+    min-height: 40px;
+    max-width: 320px;
+}

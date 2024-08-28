@@ -57,6 +57,7 @@ export class CoreGameLogic{
   }
   
   public fireLaser(){
+    console.log('this is working');
     this.laserController.createInstance(this.player);
   }
   

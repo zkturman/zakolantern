@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LandingGameComponent } from './landing-game.component';
+import { PasscodeGameComponent } from './passcode-game.component';
 
-describe('LandingGameComponent', () => {
-  let component: LandingGameComponent;
-  let fixture: ComponentFixture<LandingGameComponent>;
+describe('PasscodeGameComponent', () => {
+  let component: PasscodeGameComponent;
+  let fixture: ComponentFixture<PasscodeGameComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LandingGameComponent]
+      imports: [PasscodeGameComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LandingGameComponent);
+    fixture = TestBed.createComponent(PasscodeGameComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

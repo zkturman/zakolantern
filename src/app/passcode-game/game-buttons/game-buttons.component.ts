@@ -19,10 +19,12 @@ export class GameButtonsComponent implements OnInit {
     document.getElementsByClassName('button-container')[0].addEventListener('contextmenu', (event) => {event.preventDefault(); return false;})
     leftArrow.addEventListener('mousedown', () => this.leftButtonDown());
     leftArrow.addEventListener('mouseup', () => this.moveButtonUp());
+    leftArrow.addEventListener('mouseleave', () => this.moveButtonUp());
     leftArrow.addEventListener('touchstart', (event) => {this.leftButtonDown(event);});
     leftArrow.addEventListener('touchend', (event) => {this.moveButtonUp(event);});
     rightArrow.addEventListener('mousedown', () => this.rightButtonDown());
     rightArrow.addEventListener('mouseup', () => this.moveButtonUp());
+    rightArrow.addEventListener('mouseleave', () => this.moveButtonUp());
     rightArrow.addEventListener('touchstart', (event) => {this.rightButtonDown(event);});
     rightArrow.addEventListener('touchend', (event) => {this.moveButtonUp(event);});
     fireButton.addEventListener('mousedown', () => this.fireButtonDown());

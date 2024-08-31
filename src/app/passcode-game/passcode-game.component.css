@@ -3,16 +3,97 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
+  height: 90vh;
   width: 100vw;
+}
+
+#cabinet-logo{
+  content: url(../../assets/cabinet-art.png);
+  background-size: cover;
+  aspect-ratio: 3 / 1;
+}
+
+#cabinet-logo.default-size{
+  position: relative;
+  top: 50px;
+  height: auto;
+  width: 54vw;
+  max-width: 800px;
+}
+
+#game-screen{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.game-wall{
+  background-color: #131313;
+  width: 2vw;
+  z-index: -1;
+}
+
+.game-wall.left-wall{
+  border-radius: 0px 0px 0px 16px;
+}
+
+.game-wall.right-wall{
+  border-radius: 0px 0px 16px 0px;
 }
 
 .game-container{
   display: flex;
   justify-content: center;
   align-items: center;
+  border-style: solid;
+  border-color: #0c1c00;
+  border-width: 0px 0px 5px 0px;
+  border-radius: 4px;
+  box-shadow: 0px 6px 20px 5px #fff;
+}
+
+.game-container.default-size{
   height: 50vh;
   width: 50vw;
-  border: solid darkgreen 5px;
-  border-radius: 4px;
+  max-width: 700px;
+}
+
+.game-container.phone-portrait{
+  height: 50vh;
+  width: 80vw;
+}
+
+.game-container.phone-landscape{
+  position: relative;
+  left: 5vw;
+  height: 70vh;
+  width: 40vw;
+}
+
+#game-buttons.phone-landscape{
+  position: absolute;
+  width: 92vw;
+}
+
+.game-pad-parent{
+  position: relative;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50vw;
+  max-width: 720px;
+}
+
+#game-pad{
+  position: absolute;
+  top: 0;
+  left: -3.5vw;
+  border-bottom: 20vh solid #131313;
+	border-left: 2vw solid transparent;
+	border-right: 2vw solid transparent;
+	height: 0;
+	width: 53vw;
+  z-index: -2;
+  max-width: 780px;
 }

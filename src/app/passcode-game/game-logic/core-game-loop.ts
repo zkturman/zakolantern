@@ -2,27 +2,23 @@ import * as PIXI from 'pixi.js';
 import { PlayerController } from './player-controller';
 import { LaserController } from './laser-controller';
 import { EnemyController } from './enemy-controller';
+import { DeviceSizeFinderService } from 'src/app/device-size-finder.service';
 
 export class CoreGameLogic{
-  
+  private isGameComplete: boolean = false;
   private app: PIXI.Application;
   private arrowAnswers = ['up', 'left', 'left', 'down', 'up', 'right', 'left', 'right'];
   private player: PlayerController;
   private laserController: LaserController;
   private enemyController: EnemyController;
+  public gameCompleteTrigger: () => void;
   
-  constructor(){
+  constructor(public deviceSize: DeviceSizeFinderService){
     this.app = new PIXI.Application();
   }
 
   public async initialiseGame(){
-    let gameScreen = document.getElementsByClassName("game-container")[0];
-    await this.app.init({
-      width: gameScreen.clientWidth,
-      height: gameScreen.clientHeight,
-      background: '#000300'
-    });
-    gameScreen.appendChild(this.app.canvas);
+    await this.createCanvas();
 
     this.enemyController = new EnemyController(this.app);
     await this.enemyController.create();
@@ -44,12 +40,29 @@ export class CoreGameLogic{
     await this.laserController.create();
     this.app.ticker.add((time) => this.gameUpdate(time));
   }
+
+  private async createCanvas(){
+    let gameScreen = document.getElementsByClassName("game-container")[0];
+    console.log('here');
+    await this.app.init({
+      width: gameScreen.clientWidth,
+      height: gameScreen.clientHeight,
+      background: '#000300'
+    });
+    gameScreen.appendChild(this.app.canvas);
+  } 
   
   private gameUpdate(delta){
+    if (!this.isGameComplete){
       this.player.update(delta);
       this.laserController.update(delta);
       this.enemyController.update(delta);
       this.laserUpdate();
+      this.isGameComplete = this.enemyController.totalEnemies() == 0;
+      if (this.isGameComplete){
+        this.gameCompleteTrigger();
+      }
+    }
   }
 
   public movePlayer(value){
@@ -57,7 +70,6 @@ export class CoreGameLogic{
   }
   
   public fireLaser(){
-    console.log('this is working');
     this.laserController.createInstance(this.player);
   }
   

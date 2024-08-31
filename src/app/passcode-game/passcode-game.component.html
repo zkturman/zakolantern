@@ -1,8 +1,17 @@
-<div class="game-parent">
-  <div class="game-container"></div>
-  <app-game-buttons id="game-buttons" 
+<div class="game-parent" >
+  <div id="cabinet-logo"></div>
+  <div id="game-screen">
+    <div class="game-wall left-wall"></div>
+    <div class="game-container"></div>
+    <div class="game-wall right-wall"></div>
+  </div>
+  <div class="game-pad-parent">
+      <app-game-buttons     
+      id="game-buttons" 
       (moveActionEvent)="this.movePlayer($event)"
       (fireActionEvent)="this.fireLaser()"
       >
-  </app-game-buttons>
+    </app-game-buttons>
+    <div id="game-pad"></div>
+  </div>
 </div>

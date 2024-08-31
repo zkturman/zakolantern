@@ -29,6 +29,8 @@ import { PasscodeGameComponent } from './passcode-game/passcode-game.component';
     ]),
     GameButtonsComponent
   ],
+  exports: [
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

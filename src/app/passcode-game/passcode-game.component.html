@@ -1,17 +1,53 @@
-<div class="game-parent" >
-  <div id="cabinet-logo"></div>
-  <div id="game-screen">
-    <div class="game-wall left-wall"></div>
-    <div class="game-container"></div>
-    <div class="game-wall right-wall"></div>
+<div class="game-parent" [ngClass]="{
+    'phone-portrait' : this.deviceSize.getIsPhonePortrait(),
+    'phone-landscape' : this.deviceSize.getIsPhoneLandscape(),
+    'default-size' : this.isDefaultDeviceSize
+  }">
+  <div id="cabinet-logo" [ngClass]="{
+    'phone-portrait' : this.deviceSize.getIsPhonePortrait(),
+    'phone-landscape' : this.deviceSize.getIsPhoneLandscape(),
+    'default-size' : this.isDefaultDeviceSize
+  }"></div>
+  <div id="game-screen" [ngClass]="{
+    'phone-portrait' : this.deviceSize.getIsPhonePortrait(),
+    'phone-landscape' : this.deviceSize.getIsPhoneLandscape(),
+    'default-size' : this.isDefaultDeviceSize
+  }">
+    <div class="game-wall left-wall" [ngClass]="{
+      'phone-portrait' : this.deviceSize.getIsPhonePortrait(),
+      'phone-landscape' : this.deviceSize.getIsPhoneLandscape(),
+      'default-size' : this.isDefaultDeviceSize
+    }"></div>
+    <div class="game-container"[ngClass]="{
+      'phone-portrait' : this.deviceSize.getIsPhonePortrait(),
+      'phone-landscape' : this.deviceSize.getIsPhoneLandscape(),
+      'default-size' : this.isDefaultDeviceSize
+    }"></div>
+    <div class="game-wall right-wall"[ngClass]="{
+      'phone-portrait' : this.deviceSize.getIsPhonePortrait(),
+      'phone-landscape' : this.deviceSize.getIsPhoneLandscape(),
+      'default-size' : this.isDefaultDeviceSize
+    }"></div>
   </div>
-  <div class="game-pad-parent">
+  <div class="game-pad-parent"[ngClass]="{
+    'phone-portrait' : this.deviceSize.getIsPhonePortrait(),
+    'phone-landscape' : this.deviceSize.getIsPhoneLandscape(),
+    'default-size' : this.isDefaultDeviceSize
+     }">
       <app-game-buttons     
       id="game-buttons" 
       (moveActionEvent)="this.movePlayer($event)"
       (fireActionEvent)="this.fireLaser()"
-      >
+      [ngClass]="{
+        'phone-portrait' : this.deviceSize.getIsPhonePortrait(),
+        'phone-landscape' : this.deviceSize.getIsPhoneLandscape(),
+        'default-size' : this.isDefaultDeviceSize
+      }">
     </app-game-buttons>
-    <div id="game-pad"></div>
+    <div id="game-pad"[ngClass]="{
+      'phone-portrait' : this.deviceSize.getIsPhonePortrait(),
+      'phone-landscape' : this.deviceSize.getIsPhoneLandscape(),
+      'default-size' : this.isDefaultDeviceSize
+    }"></div>
   </div>
 </div>

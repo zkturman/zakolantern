@@ -62,4 +62,12 @@ export class DeviceSizeFinderService {
   public getIsTabletLandscape(){
     return this.isTabletLandscape;
   }
+
+  public getIsDefault(valuesToCheck: boolean[]){
+    let allFalse = false;
+    for (let i = 0; i < valuesToCheck.length; i++){
+      allFalse = allFalse || valuesToCheck[i];
+    }
+    return (allFalse == false);
+  }
 }

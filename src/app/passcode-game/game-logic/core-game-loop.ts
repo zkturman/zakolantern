@@ -43,7 +43,6 @@ export class CoreGameLogic{
 
   private async createCanvas(){
     let gameScreen = document.getElementsByClassName("game-container")[0];
-    console.log('here');
     await this.app.init({
       width: gameScreen.clientWidth,
       height: gameScreen.clientHeight,

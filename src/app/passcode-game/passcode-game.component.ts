@@ -10,9 +10,9 @@ import { DeviceSizeFinderService } from '../device-size-finder.service';
 })
 export class PasscodeGameComponent implements OnInit {
   private gameLogic : CoreGameLogic;
+  isDefaultDeviceSize: boolean;
   
   constructor(public router: Router, public deviceSize: DeviceSizeFinderService) { 
-    console.log(deviceSize);
     this.gameLogic = new CoreGameLogic(deviceSize);
   }
 
@@ -20,21 +20,19 @@ export class PasscodeGameComponent implements OnInit {
     window.addEventListener('orientationchange', function(){
       this.window.location.reload();
     });
+    this.isDefaultDeviceSize = this.deviceSize.getIsDefault([
+      this.deviceSize.getIsPhonePortrait(),
+      this.deviceSize.getIsPhoneLandscape()
+    ])
     let gameScreen = document.getElementsByClassName("game-container")[0];
-    let cabinetArt = document.getElementById('cabinet-logo');
-    let gameButtons = document.getElementById('game-buttons');
-    let gamePad = document.getElementById('gamePad');
     if (this.deviceSize.getIsPhonePortrait()){
       gameScreen.classList.add('phone-portrait');
-      cabinetArt.classList.add('phone-portrait');
     }
     else if (this.deviceSize.getIsPhoneLandscape()){
       gameScreen.classList.add('phone-landscape');
-      document.getElementById('game-buttons').classList.add('phone-landscape');
     }
     else{
       gameScreen.classList.add('default-size');
-      cabinetArt.classList.add('default-size');
     }
     await this.gameLogic.initialiseGame();
     this.gameLogic.gameCompleteTrigger = () => this.completeGame();

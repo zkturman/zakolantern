@@ -5,6 +5,9 @@ export class EnemyController{
   private readonly app: PIXI.Application;
   private enemyImage: PIXI.Texture;
   private enemyData: EnemyData[] = [];
+  private arrowData: EnemyData[] = [];
+
+  public ArrowY: number;
 
   constructor(app: PIXI.Application){
     this.app = app;
@@ -16,7 +19,7 @@ export class EnemyController{
 
   public createInstance(x: number, y: number){
     let newEnemy = new EnemyData();
-    newEnemy.id = this.enemyData.length;
+    newEnemy.id = this.enemyData.length + 1;
     newEnemy.sprite = new PIXI.Sprite(this.enemyImage);
     newEnemy.sprite.x = x;
     newEnemy.sprite.y = y;
@@ -28,6 +31,7 @@ export class EnemyController{
     newEnemy.moveDirection = Math.round(Math.random()) === 1 ? 1 : -1;
     this.enemyData.push(newEnemy);
     this.app.stage.addChild(newEnemy.sprite);
+    console.log('Positon: ' + newEnemy.sprite.x + ', ' + newEnemy.sprite.y);
   }
 
   public getInstance(index: number): EnemyData{
@@ -43,6 +47,10 @@ export class EnemyController{
     arrow.width = this.enemyData[index].sprite.width;
     arrow.height = arrow.width;
     this.enemyData[index].sprite.destroy();
+    this.enemyData[index].arrowSprite = arrow;
+    this.enemyData[index].arrowInitialX = arrow.x;
+    this.enemyData[index].arrowInitialY = arrow.y;
+    this.arrowData.push(this.enemyData[index]);
     this.enemyData.splice(index, 1);
     this.app.stage.addChild(arrow);
   }
@@ -52,6 +60,11 @@ export class EnemyController{
   }
 
   public update(time){
+    this.updateEnemies(time);
+    this.updateArrows(time);
+  }
+
+  private updateEnemies(time){
     for (let i = 0; i < this.totalEnemies(); i++){
       let enemy = this.enemyData[i].sprite;
       let originalX = this.enemyData[i].startingX;
@@ -68,6 +81,30 @@ export class EnemyController{
         this.enemyData[i].moveDirection = Math.round((Math.random() * 2) - 1);
       }
       enemy.x += 0.1 * time.deltaTime * currentDirection * 3;
+    }
+  }
+
+  private updateArrows(time){
+    let xInterval = this.app.canvas.width / 8;
+    let destinationY = this.ArrowY;
+    let unitsPerSecond = 1;
+    for (let i = 0; i < this.arrowData.length; i++){
+      let destinationX = (xInterval * this.arrowData[i].id) - (this.arrowData[i].arrowSprite.width);
+      let directionX = destinationX - this.arrowData[i].arrowSprite.x;
+      let directionY = destinationY - this.arrowData[i].arrowSprite.y;
+      let magnitude = Math.sqrt((directionX * directionX) + (directionY * directionY));
+      let unitX = directionX / magnitude;
+      let unitY = directionY / magnitude;
+      let changeX = unitX * unitsPerSecond * time.deltaTime;
+      let changeY = unitY * unitsPerSecond * time.deltaTime;
+      this.arrowData[i].arrowSprite.x += changeX;
+      this.arrowData[i].arrowSprite.y += changeY;
+      if (this.arrowData[i].arrowSprite.y + this.arrowData[i].arrowSprite.height >= destinationY){
+          this.arrowData[i].arrowSprite.x = destinationX;
+          this.arrowData[i].arrowSprite.y = destinationY - this.arrowData[i].arrowSprite.height;
+          this.arrowData.splice(i, 1);
+          i--;
+      }
     }
   }
 

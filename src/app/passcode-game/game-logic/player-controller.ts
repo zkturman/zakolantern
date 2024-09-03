@@ -18,9 +18,14 @@ export class PlayerController{
     this.player.width = this.app.screen.width * 0.05;
     this.player.anchor.set(0.5);
     this.player.x = this.app.screen.width / 2;
-    this.player.y = this.app.screen.height - 50;
+    this.player.y = this.app.screen.height / 2;
     this.app.stage.addChild(this.player);
   }
+
+  public setPosition(x: number, y: number){
+    this.player.x = x;
+    this.player.y = y;
+  } 
 
   public update(time){
     if (!this.playerWithinBound()){

@@ -7,6 +7,11 @@ export class EnemyData{
   public id: number;
   public sprite: Sprite;
   public arrowKey: string;
+  public arrowSprite: Sprite;
+  public arrowInitialX: number;
+  public arrowInitialY: number;
+  public arrowDestinationX: number;
+  public arrowDestinationY: number;
 
   constructor(){}
 }

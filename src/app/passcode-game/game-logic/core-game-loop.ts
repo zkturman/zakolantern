@@ -11,6 +11,7 @@ export class CoreGameLogic{
   private player: PlayerController;
   private laserController: LaserController;
   private enemyController: EnemyController;
+  private playableZones: Number = 6;
   public gameCompleteTrigger: () => void;
   
   constructor(public deviceSize: DeviceSizeFinderService){
@@ -25,17 +26,19 @@ export class CoreGameLogic{
     let targetNumber = 4;
     let targetWidth = this.app.screen.width / 1.5 / targetNumber;
     for (let i = 0; i < targetNumber; i++){
-      this.enemyController.createInstance(targetWidth * i + (targetWidth / 2), this.app.screen.height * 0.2);
+      this.enemyController.createInstance(targetWidth * i + (targetWidth / 2), this.app.screen.height * (3 / 6));
     }
     for (let i = 0; i < targetNumber; i++){
       let offset = (targetWidth / 2) + (this.app.screen.width - (this.app.screen.width / 1.5));
-      this.enemyController.createInstance(targetWidth * i + offset, this.app.screen.height * 0.4);
+      this.enemyController.createInstance(targetWidth * i + offset, this.app.screen.height * (4 / 6));
     }
+    this.enemyController.ArrowY = (this.app.screen.height * (6 / 6));
     for (let i = 0; i < this.arrowAnswers.length; i++){
       this.enemyController.getInstance(i).arrowKey = this.arrowAnswers[i];
     }
     this.player = new PlayerController(this.app);
     await this.player.create();
+    this.player.setPosition(this.app.screen.width / 2, this.app.screen.height * (5/ 6));
     this.laserController = new LaserController(this.app);
     await this.laserController.create();
     this.app.ticker.add((time) => this.gameUpdate(time));
@@ -57,7 +60,7 @@ export class CoreGameLogic{
       this.laserController.update(delta);
       this.enemyController.update(delta);
       this.laserUpdate();
-      this.isGameComplete = this.enemyController.totalEnemies() == 0;
+      this.isGameComplete = this.enemyController.totalEnemies() == -1;
       if (this.isGameComplete){
         this.gameCompleteTrigger();
       }

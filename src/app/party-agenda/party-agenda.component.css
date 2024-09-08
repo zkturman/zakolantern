@@ -1,6 +1,11 @@
 p, li, h1, h2, h3, a{
-    color: #8afaf8;
+    color: #b1fbdc;
+    font-weight: bold;
     font-family: 'Courier New', Courier, monospace;
+}
+
+p{
+    font-size: large;
 }
 
 h1, h2, h3{
@@ -21,7 +26,6 @@ h1, h2, h3{
 }
 
 .background-skelly img{
-    max-width: 80%;
     align-self: center;
     justify-self: center;
     overflow: hidden;
@@ -37,7 +41,7 @@ h1, h2, h3{
     padding: 0px;
     opacity: 1;
     background-color: unset;
-    background-image: linear-gradient(to bottom right, #e60132, #8e0727);
+    background-image: linear-gradient(to bottom right, #5301a0, #1a0063);
     border-radius: 4px;
 }
 
@@ -47,7 +51,7 @@ h1, h2, h3{
     padding: 0px;
     opacity: 1;
     background-color: unset;
-    background-image: linear-gradient(to bottom right, #e60132, #8e0727);
+    background-image: linear-gradient(to bottom right,  #5301a0, #1a0063);
     border-radius: 4px;
 }
 

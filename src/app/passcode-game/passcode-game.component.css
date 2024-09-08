@@ -5,6 +5,12 @@
   flex-direction: column;
   height: 90vh;
   width: 100vw;
+  transition: transform 1s ease-in, opacity 1s ease-in;
+}
+
+.game-parent.game-complete{
+  transform: translatey(100vh);
+  opacity: 0;
 }
 
 #cabinet-logo{
@@ -150,7 +156,7 @@
 
 #game-pad.phone-portrait{
   left: -4.2vw;
-  border-bottom: 30vh solid #131313;
+  border-bottom: 28vh solid #131313;
 	border-left: 2vw solid transparent;
 	border-right: 2vw solid transparent;
 	height: 0;

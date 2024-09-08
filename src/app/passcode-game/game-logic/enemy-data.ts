@@ -4,6 +4,7 @@ export class EnemyData{
   public startingX: number;
   public startingY: number;
   public moveDirection: number = 0;
+  public fakeId: number;
   public id: number;
   public sprite: Sprite;
   public arrowKey: string;

@@ -1,20 +1,25 @@
 import * as PIXI from 'pixi.js'
 import { EnemyData } from './enemy-data';
+import { BossController } from './boss-controller';
+import { DeviceSizeFinderService } from 'src/app/device-size-finder.service';
 
 export class EnemyController{
   private readonly app: PIXI.Application;
   private enemyImage: PIXI.Texture;
   private enemyData: EnemyData[] = [];
-  private arrowData: EnemyData[] = [];
-
+  private initialArrowData: EnemyData[] = [];
+  private finalBoss: BossController;
+  private bossRemainingCount: number = 1;
   public ArrowY: number;
-
-  constructor(app: PIXI.Application){
+  public BossY: number;
+  constructor(app: PIXI.Application, public deviceSize: DeviceSizeFinderService){
     this.app = app;
   }
 
   public async create(){
     this.enemyImage = await PIXI.Assets.load('../../../assets/enemy-icon.png');
+    this.finalBoss = new BossController();
+    await this.finalBoss.create();
   }
 
   public createInstance(x: number, y: number){
@@ -25,17 +30,26 @@ export class EnemyController{
     newEnemy.sprite.y = y;
     newEnemy.startingX = newEnemy.sprite.x;
     newEnemy.startingY = newEnemy.sprite.y;
-    newEnemy.sprite.height = this.app.screen.width * 0.05;
-    newEnemy.sprite.width = this.app.screen.width * 0.05;
+    if (this.deviceSize.getIsPhonePortrait()){
+    newEnemy.sprite.height = this.app.screen.width * 0.07;
+    newEnemy.sprite.width = this.app.screen.width * 0.07;
+    }
+    else{
+      newEnemy.sprite.height = this.app.screen.width * 0.05;
+      newEnemy.sprite.width = this.app.screen.width * 0.05;  
+    }
     newEnemy.sprite.anchor.set(0.5);
     newEnemy.moveDirection = Math.round(Math.random()) === 1 ? 1 : -1;
     this.enemyData.push(newEnemy);
     this.app.stage.addChild(newEnemy.sprite);
-    console.log('Positon: ' + newEnemy.sprite.x + ', ' + newEnemy.sprite.y);
   }
 
   public getInstance(index: number): EnemyData{
     return this.enemyData[index];
+  }
+
+  public getFinalBoss(): BossController{
+    return this.finalBoss;
   }
 
   public async destroyInstance(index: number){
@@ -50,7 +64,7 @@ export class EnemyController{
     this.enemyData[index].arrowSprite = arrow;
     this.enemyData[index].arrowInitialX = arrow.x;
     this.enemyData[index].arrowInitialY = arrow.y;
-    this.arrowData.push(this.enemyData[index]);
+    this.initialArrowData.push(this.enemyData[index]);
     this.enemyData.splice(index, 1);
     this.app.stage.addChild(arrow);
   }
@@ -61,7 +75,29 @@ export class EnemyController{
 
   public update(time){
     this.updateEnemies(time);
-    this.updateArrows(time);
+    this.updateArrows(time, this.initialArrowData);
+    if (this.enemyData.length == 0){
+      if (this.bossRemainingCount > 0 && this.enemyData.length == 0){
+        this.finalBoss.createInstance(this.app);
+        this.finalBoss.data.sprite.y = this.BossY;
+        if (this.deviceSize.getIsPhonePortrait()){
+          this.finalBoss.data.sprite.width = this.app.screen.width * 0.2;
+          this.finalBoss.data.sprite.height = this.app.screen.width * 0.2;
+        }
+        else{
+          this.finalBoss.data.sprite.width = this.app.screen.width * 0.15;
+          this.finalBoss.data.sprite.height = this.app.screen.width * 0.15;
+        }
+        this.bossRemainingCount--;
+      }
+      else{
+        this.finalBoss?.update(time);
+        if (this.finalBoss?.isDead()){
+          this.finalBoss.destroyInstance();
+          this.finalBoss = null;
+        }
+      }
+    }
   }
 
   private updateEnemies(time){
@@ -84,26 +120,27 @@ export class EnemyController{
     }
   }
 
-  private updateArrows(time){
+  private updateArrows(time, arrowsToMove: EnemyData[]){
     let xInterval = this.app.canvas.width / 8;
-    let destinationY = this.ArrowY;
     let unitsPerSecond = 1;
-    for (let i = 0; i < this.arrowData.length; i++){
-      let destinationX = (xInterval * this.arrowData[i].id) - (this.arrowData[i].arrowSprite.width);
-      let directionX = destinationX - this.arrowData[i].arrowSprite.x;
-      let directionY = destinationY - this.arrowData[i].arrowSprite.y;
+    for (let i = 0; i < arrowsToMove.length; i++){
+      let arrowIndex = arrowsToMove[i].id;
+      let destinationX = (xInterval * arrowIndex) - (arrowsToMove[i].arrowSprite.width);
+      let destinationY = this.ArrowY - arrowsToMove[i].arrowSprite.height;
+      let directionX = destinationX - arrowsToMove[i].arrowSprite.x;
+      let directionY = destinationY - arrowsToMove[i].arrowSprite.y;
       let magnitude = Math.sqrt((directionX * directionX) + (directionY * directionY));
-      let unitX = directionX / magnitude;
-      let unitY = directionY / magnitude;
-      let changeX = unitX * unitsPerSecond * time.deltaTime;
-      let changeY = unitY * unitsPerSecond * time.deltaTime;
-      this.arrowData[i].arrowSprite.x += changeX;
-      this.arrowData[i].arrowSprite.y += changeY;
-      if (this.arrowData[i].arrowSprite.y + this.arrowData[i].arrowSprite.height >= destinationY){
-          this.arrowData[i].arrowSprite.x = destinationX;
-          this.arrowData[i].arrowSprite.y = destinationY - this.arrowData[i].arrowSprite.height;
-          this.arrowData.splice(i, 1);
-          i--;
+      if (magnitude <= 0.01){
+        arrowsToMove.splice(i, 1);
+        i--;
+      }
+      else{
+        let unitX = directionX / magnitude;
+        let unitY = directionY / magnitude;
+        let changeX = unitX * unitsPerSecond * time.deltaTime;
+        let changeY = unitY * unitsPerSecond * time.deltaTime;
+        arrowsToMove[i].arrowSprite.x += changeX;
+        arrowsToMove[i].arrowSprite.y += changeY;
       }
     }
   }

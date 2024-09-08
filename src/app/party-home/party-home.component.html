@@ -1,12 +1,12 @@
 <div class="landing-image-area" [ngClass]="{'is-phone-portrait' : this.deviceSize.getIsPhonePortrait()}">
   <div class="prompt-container">
-      <p class="entry-password-prompt">
+      <p class="entry-password-prompt prompt-1">
           tick... tock... 
       </p>
-      <p class="entry-password-prompt">
+      <p class="entry-password-prompt prompt-2">
           tick... tock... 
       </p>
-      <p class="entry-password-prompt">
+      <p class="entry-password-prompt prompt-3">
           do you know the code? 
       </p>
   </div>
@@ -44,4 +44,5 @@
   <div id="answer-container" class="answer-container">
       <span *ngFor="let item of this.userCode; index as i" class="arrow-answer {{this.userCode[i]}}-arrow"></span>
   </div>
+  <img class="intro-image" src="../assets/IntroArcade.gif" alt="">
 </div>

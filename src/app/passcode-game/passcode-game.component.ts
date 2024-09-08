@@ -39,8 +39,9 @@ export class PasscodeGameComponent implements OnInit {
   }
 
   completeGame(){
-    console.log(this.router);
-    this.router.navigate(['/home']);
+    let component = document.getElementsByClassName('game-parent')[0];
+    component.classList.add('game-complete');
+    component.addEventListener('transitionend', () => {this.router.navigate(['/home']);});
   }
 
   movePlayer(value){

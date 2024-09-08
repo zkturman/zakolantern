@@ -1,5 +1,6 @@
 import { setThrowInvalidWriteToSignalError } from '@angular/core/primitives/signals';
 import * as PIXI from 'pixi.js';
+import { DeviceSizeFinderService } from 'src/app/device-size-finder.service';
 
 export class PlayerController{
   private readonly app: PIXI.Application;
@@ -7,15 +8,21 @@ export class PlayerController{
   private player: PIXI.Sprite;
   private playerDirection: number = 0;
 
-  constructor(app: PIXI.Application){
+  constructor(app: PIXI.Application, public deviceSize: DeviceSizeFinderService){
     this.app = app;
   }
 
   public async create(){
     this.playerImage = await PIXI.Assets.load('../../assets/ship-icon.png');
     this.player = new PIXI.Sprite(this.playerImage);
-    this.player.height = this.app.screen.width * 0.05;
-    this.player.width = this.app.screen.width * 0.05;
+    if (this.deviceSize.getIsPhonePortrait()){
+      this.player.height = this.app.screen.width * 0.07;
+      this.player.width = this.app.screen.width * 0.07;
+    }
+    else{
+      this.player.height = this.app.screen.width * 0.05;
+      this.player.width = this.app.screen.width * 0.05;      
+    }
     this.player.anchor.set(0.5);
     this.player.x = this.app.screen.width / 2;
     this.player.y = this.app.screen.height / 2;

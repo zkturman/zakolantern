@@ -11,7 +11,7 @@ export class CoreGameLogic{
   private player: PlayerController;
   private laserController: LaserController;
   private enemyController: EnemyController;
-  private playableZones: Number = 6;
+  private playableZones: number = 6;
   public gameCompleteTrigger: () => void;
   
   constructor(public deviceSize: DeviceSizeFinderService){
@@ -21,25 +21,27 @@ export class CoreGameLogic{
   public async initialiseGame(){
     await this.createCanvas();
 
-    this.enemyController = new EnemyController(this.app);
+    this.enemyController = new EnemyController(this.app, this.deviceSize);
+    this.enemyController.BossY = (this.app.screen.height * (2 / this.playableZones))
     await this.enemyController.create();
     let targetNumber = 4;
     let targetWidth = this.app.screen.width / 1.5 / targetNumber;
     for (let i = 0; i < targetNumber; i++){
-      this.enemyController.createInstance(targetWidth * i + (targetWidth / 2), this.app.screen.height * (3 / 6));
+      this.enemyController.createInstance(targetWidth * i + (targetWidth / 2), this.app.screen.height * (3 / this.playableZones));
     }
     for (let i = 0; i < targetNumber; i++){
       let offset = (targetWidth / 2) + (this.app.screen.width - (this.app.screen.width / 1.5));
-      this.enemyController.createInstance(targetWidth * i + offset, this.app.screen.height * (4 / 6));
+      this.enemyController.createInstance(targetWidth * i + offset, this.app.screen.height * (4 / this.playableZones));
     }
-    this.enemyController.ArrowY = (this.app.screen.height * (6 / 6));
+    this.enemyController.ArrowY = (this.app.screen.height * (6 / this.playableZones));
+    this.enemyController.BossY = (this.app.screen.height * (3 / this.playableZones))
     for (let i = 0; i < this.arrowAnswers.length; i++){
       this.enemyController.getInstance(i).arrowKey = this.arrowAnswers[i];
     }
-    this.player = new PlayerController(this.app);
+    this.player = new PlayerController(this.app, this.deviceSize);
     await this.player.create();
     this.player.setPosition(this.app.screen.width / 2, this.app.screen.height * (5/ 6));
-    this.laserController = new LaserController(this.app);
+    this.laserController = new LaserController(this.app, this.deviceSize);
     await this.laserController.create();
     this.app.ticker.add((time) => this.gameUpdate(time));
   }
@@ -60,7 +62,7 @@ export class CoreGameLogic{
       this.laserController.update(delta);
       this.enemyController.update(delta);
       this.laserUpdate();
-      this.isGameComplete = this.enemyController.totalEnemies() == -1;
+      this.isGameComplete = this.enemyController.getFinalBoss() === null;
       if (this.isGameComplete){
         this.gameCompleteTrigger();
       }
@@ -77,24 +79,39 @@ export class CoreGameLogic{
   
   private laserUpdate(){
     for (let i = this.laserController.getTotalShots() - 1; i >= 0; i--){
+      let laserSprite = this.laserController.getInstance(i);
       for (let j = 0; j < this.enemyController.totalEnemies(); j++){
-        let laserSprite = this.laserController.getInstance(i);
         let enemySprite = this.enemyController.getInstance(j).sprite;
-        let laserY = laserSprite.y;
-        let enemyYMin = enemySprite.y - (enemySprite.height / 2);
-        let enemyYMax = enemySprite.y + (enemySprite.height / 2);
-        if (laserY > enemyYMin && laserY < enemyYMax){
-          let laserX = laserSprite.x;
-          let enemyXMin = enemySprite.x - (enemySprite.width / 2);
-          let enemyXMax = enemySprite.x + (enemySprite.width / 2);
-          if (laserX > enemyXMin && laserX < enemyXMax){
+        if (this.isLaserEnemyCollision(laserSprite, enemySprite)){
             this.laserController.destroyInstance(i);
             this.enemyController.destroyInstance(j);
             j--;
             break;
           }
-        }  
       }
     }
+    for (let i = this.laserController.getTotalShots() -1; i >= 0; i--){
+      let laserSprite = this.laserController.getInstance(i);
+      if (this.enemyController.totalEnemies() == 0){
+        let finalBoss = this.enemyController.getFinalBoss();
+        if (finalBoss != null){
+          if (this.isLaserEnemyCollision(laserSprite, finalBoss.data.sprite)){
+            this.laserController.destroyInstance(i);
+            finalBoss.reduceHealth();
+          }
+        }
+      }
+    }
+  }
+
+  private isLaserEnemyCollision(laserSprite, enemySprite): boolean{
+    let laserY = laserSprite.y;
+    let laserX = laserSprite.x;
+    let enemyYMin = enemySprite.y - (enemySprite.height / 2);
+    let enemyYMax = enemySprite.y + (enemySprite.height / 2);
+    let enemyXMin = enemySprite.x - (enemySprite.width / 2);
+    let enemyXMax = enemySprite.x + (enemySprite.width / 2);
+    return (laserY > enemyYMin && laserY < enemyYMax)
+      && (laserX > enemyXMin && laserX < enemyXMax); 
   }
 } 

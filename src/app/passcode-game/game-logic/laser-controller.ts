@@ -1,12 +1,13 @@
 import * as PIXI from 'pixi.js';
 import { PlayerController } from './player-controller';
+import { DeviceSizeFinderService } from 'src/app/device-size-finder.service';
 
 export class LaserController{
   private readonly app: PIXI.Application;
   private laserImage: PIXI.Texture;
   private laserShots: PIXI.Sprite[] = [];
 
-  constructor(app: PIXI.Application){
+  constructor(app: PIXI.Application, public deviceSize: DeviceSizeFinderService){
     this.app = app;
   }
 
@@ -16,8 +17,14 @@ export class LaserController{
 
   public createInstance(player: PlayerController){
     let laserBar = new PIXI.Sprite(this.laserImage);
-    laserBar.height = this.app.screen.width * 0.03;
-    laserBar.width = this.app.screen.width * 0.005;
+    if (this.deviceSize.getIsPhonePortrait()){
+      laserBar.height = this.app.screen.width * 0.04;
+      laserBar.width = this.app.screen.width * 0.01;  
+    }
+    else{
+      laserBar.height = this.app.screen.width * 0.03;
+      laserBar.width = this.app.screen.width * 0.005;  
+    }
     laserBar.anchor.set(0.5);
     laserBar.x = player.GetXCoordinate();
     laserBar.y = player.GetYCoordinate() - (player.GetHeight() / 2);

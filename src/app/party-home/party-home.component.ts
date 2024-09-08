@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { DeviceSizeFinderService } from '../device-size-finder.service';
 import { Router } from '@angular/router';
 
@@ -7,15 +7,15 @@ import { Router } from '@angular/router';
   templateUrl: './party-home.component.html',
   styleUrls: ['./party-home.component.css']
 })
-export class PartyHomeComponent implements OnInit {
+export class PartyHomeComponent implements OnInit, AfterViewInit {
   private gamePasscode: Array<string> = [
     'up',
-    'up',
-    'up',
-    'up',
-    'up',
-    'up',
-    'up',
+    'down',
+    'left',
+    'right',
+    'right',
+    'left',
+    'down',
     'up'
   ];
   private agendaPasscode: Array<string> = [
@@ -50,7 +50,15 @@ export class PartyHomeComponent implements OnInit {
     downArrow.addEventListener('mousedown', () => this.arrowButtonDown(null, 'down'));
     downArrow.addEventListener('touchstart', (event) => {this.arrowButtonDown(event, 'down');});
     downArrow.addEventListener('touchend', (event) => {this.arrowButtonTouchEnd(event);});
+  }
 
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      let prompts = document.getElementsByClassName('entry-password-prompt');
+      for (let i = 0; i < prompts.length; i++){
+        prompts[i].classList.add('loaded');
+      }
+    });
   }
 
   private arrowButtonDown(event: any, arrowKey: string){
@@ -71,10 +79,14 @@ export class PartyHomeComponent implements OnInit {
   private evaluateCode(){
     if (this.userCode.length === this.gamePasscode.length){
       if (this.userCodeMatchesGivenCode(this.gamePasscode)){
-        this.router.navigate(['/game/pre']);
+        let component = document.getElementsByClassName('landing-image-area')[0]
+        component.classList.add('correct-password');
+        component.addEventListener('transitionend', ()=>{this.router.navigate(['/game/pre']);})
       }
       else if (this.userCodeMatchesGivenCode(this.agendaPasscode)){
-        this.router.navigate(['/agenda']);
+        let component = document.getElementsByClassName('landing-image-area')[0]
+        component.classList.add('correct-password');
+        component.addEventListener('transitionend', ()=>{this.router.navigate(['/agenda']);});
       }
       else{
         console.log('bad code...');
@@ -93,4 +105,6 @@ export class PartyHomeComponent implements OnInit {
     }
     return isMatch;
   }
+
+
 }

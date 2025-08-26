@@ -16,8 +16,8 @@ function App() {
         <nav>
           <NavLink to="/" className={navLinkStyles}>Home</NavLink> |{" "}
           <NavLink to="/journal" className={navLinkStyles}>Journals</NavLink> |{" "}
-          <NavLink to="/investigate" className={navLinkStyles}>Research</NavLink>
-          <NavLink to="/chimes" className={navLinkStyles}>Chapel</NavLink>
+          <NavLink to="/investigate" className={navLinkStyles}>Research</NavLink> |{" "}
+          <NavLink to="/chimes" className={navLinkStyles}>Chapel</NavLink> |{" "}
           <NavLink to="/invite" className={navLinkStyles}>Details</NavLink>
         </nav>
 

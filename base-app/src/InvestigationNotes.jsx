@@ -1,6 +1,6 @@
 import {Application, Container, Graphics, Text, TextStyle, transformVertices} from 'pixi.js'
 import { useEffect, useRef } from 'react';
-import { ResearchEntryData } from '../data/database';
+import { ResearchEntryData } from 'data/database';
 import './InvestigationNotes.css';
 
 function InvestigationNotes(){

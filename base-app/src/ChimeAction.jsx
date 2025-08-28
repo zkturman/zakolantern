@@ -13,10 +13,10 @@ function ChimeAction(){
     const currentAnswer = [0];
     const chimeSounds = 
     [
-        new Howl({src: ["../assets/Chime1.wav"], volume: 1.0}),
-        new Howl({src: ["../assets/Chime2.wav"], volume: 1.0}),
-        new Howl({src: ["../assets/Chime4.wav"], volume: 1.0}),
-        new Howl({src: ["../assets/Chime3.wav"], volume: 1.0}),
+        new Howl({src: ["assets/Chime1.wav"], volume: 1.0}),
+        new Howl({src: ["assets/Chime2.wav"], volume: 1.0}),
+        new Howl({src: ["assets/Chime4.wav"], volume: 1.0}),
+        new Howl({src: ["assets/Chime3.wav"], volume: 1.0}),
     ];
     const themeMusicRef = useRef(null);    const navigate = useNavigate();
     const location = useLocation();
@@ -86,7 +86,7 @@ function ChimeAction(){
             app.resize();
             generateChimes(app);
             appRef.current = app;
-            themeMusicRef.current = new Howl({src: ["../assets/ChimeTheme.wav"], loop: true, volume: 0.8});
+            themeMusicRef.current = new Howl({src: ["assets/ChimeTheme.wav"], loop: true, volume: 0.8});
             themeMusicRef.current.play();
         };
         init();

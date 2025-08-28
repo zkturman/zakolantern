@@ -1,7 +1,7 @@
 import {Application, Graphics, Container, Text, TextStyle} from 'pixi.js'
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import { JournalEntryData } from '../data/database.js';
+import { JournalEntryData } from 'data/database.js';
 import { Howl } from 'howler';
 import './JournalEntries.css';
 
@@ -13,10 +13,10 @@ function JournalEntries(){
     const rightButtonRef = useRef(null);
     let currentPage = 0;
     const pageSounds = [
-        new Howl({src: ["../assets/PageTurn1.wav"], volume: 1.0}),
-        new Howl({src: ["../assets/PageTurn2.wav"], volume: 1.0}),
-        new Howl({src: ["../assets/PageTurn3.wav"], volume: 1.0}),
-        new Howl({src: ["../assets/PageTurn4.wav"], volume: 1.0}),
+        new Howl({src: ["assets/PageTurn1.wav"], volume: 1.0}),
+        new Howl({src: ["assets/PageTurn2.wav"], volume: 1.0}),
+        new Howl({src: ["assets/PageTurn3.wav"], volume: 1.0}),
+        new Howl({src: ["assets/PageTurn4.wav"], volume: 1.0}),
     ];
     const location = useLocation();
 

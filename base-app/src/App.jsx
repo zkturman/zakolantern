@@ -1,5 +1,5 @@
 import './App.css'
-import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, NavLink, useLocation } from 'react-router-dom';
 import {Home} from './Home.jsx';
 import {ChimeAction} from './ChimeAction.jsx';
 import {JournalEntries} from './JournalEntries.jsx';

@@ -1,6 +1,8 @@
 import {Application, Graphics, Container, Text, TextStyle} from 'pixi.js'
 import { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { JournalEntryData } from '../data/database.js';
+import { Howl } from 'howler';
 import './JournalEntries.css';
 
 function JournalEntries(){
@@ -10,6 +12,13 @@ function JournalEntries(){
     const leftButtonRef = useRef(null);
     const rightButtonRef = useRef(null);
     let currentPage = 0;
+    const pageSounds = [
+        new Howl({src: ["../assets/PageTurn1.wav"], volume: 1.0}),
+        new Howl({src: ["../assets/PageTurn2.wav"], volume: 1.0}),
+        new Howl({src: ["../assets/PageTurn3.wav"], volume: 1.0}),
+        new Howl({src: ["../assets/PageTurn4.wav"], volume: 1.0}),
+    ];
+    const location = useLocation();
 
     function pageButtonClick(pagesToIncrement){
         let numberOfPages = JournalEntryData.Entries.length;
@@ -20,6 +29,8 @@ function JournalEntries(){
             renderButtons(appRef.current);
             renderJournalEntry(appRef.current, JournalEntryData.Entries[currentPage]);
         }
+        let soundIndex = Math.floor(Math.random() * 4);
+        pageSounds[soundIndex].play();
     }
 
     function renderJournalEntry(app, entry){
@@ -38,7 +49,6 @@ function JournalEntries(){
         container.addChild(dateText);
         const journalText = new Text({text: entry.Text, style: style});
         journalText.position.set(0, 100);
-        // journalText.width = width;
         container.addChild(journalText);
         container.position.set((app.canvas.width / 2) - (container.width / 2), 0);
         app.stage.addChild(container);
@@ -99,6 +109,12 @@ function JournalEntries(){
             }
         };
     }, []);
+
+    useEffect(() => {
+        return () => {
+            
+        };
+    }, [location])
     return(
         <>
             <div

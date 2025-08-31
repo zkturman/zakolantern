@@ -1,7 +1,8 @@
-import {Application, Graphics, Container, Text, TextStyle} from 'pixi.js'
+import {Application, Graphics, Container, Text, TextStyle, Assets, TilingSprite, Sprite} from 'pixi.js'
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import { JournalEntryData } from 'data/database.js';
+import { JournalEntryData } from './data/database.js';
+import { JournalSfx, JournalTheme } from './data/assetkeys.js';
 import { Howl } from 'howler';
 import './JournalEntries.css';
 
@@ -12,12 +13,13 @@ function JournalEntries(){
     const leftButtonRef = useRef(null);
     const rightButtonRef = useRef(null);
     let currentPage = 0;
-    const pageSounds = [
-        new Howl({src: ["assets/PageTurn1.wav"], volume: 1.0}),
-        new Howl({src: ["assets/PageTurn2.wav"], volume: 1.0}),
-        new Howl({src: ["assets/PageTurn3.wav"], volume: 1.0}),
-        new Howl({src: ["assets/PageTurn4.wav"], volume: 1.0}),
-    ];
+    const pageSounds = JournalSfx.map(asset => new Howl({
+        src: [asset],
+        volumen: 1.0
+    }));
+    const themeMusicRef = useRef(null);
+    const journalTextureRef = useRef(null);
+    const buttonTextureRef = useRef(null);
     const location = useLocation();
 
     function pageButtonClick(pagesToIncrement){
@@ -26,8 +28,8 @@ function JournalEntries(){
         if ((nextPage >= 0) && (nextPage < numberOfPages)){
             currentPage = nextPage;
             appRef.current.stage.removeChildren();
-            renderButtons(appRef.current);
             renderJournalEntry(appRef.current, JournalEntryData.Entries[currentPage]);
+            renderButtons(appRef.current);
         }
         let soundIndex = Math.floor(Math.random() * 4);
         pageSounds[soundIndex].play();
@@ -43,8 +45,17 @@ function JournalEntries(){
         const style = new TextStyle({
             align: 'left',
             wordWrap: true,
-            wordWrapWidth: width
+            wordWrapWidth: width,
+            fontFamily: 'CasualCursive',
+            fontSize: 45,
         });
+        const journalTile = new TilingSprite({
+            texture: journalTextureRef.current, 
+            width: app.canvas.width,
+            height: app.canvas.height,
+        });
+        app.stage.addChild(journalTile);
+        journalTile.tileScale.set(0.5, 0.5);
         const dateText = new Text({text: entry.Date, style: style});
         container.addChild(dateText);
         const journalText = new Text({text: entry.Text, style: style});
@@ -69,18 +80,16 @@ function JournalEntries(){
             width: app.canvas.width / 6
         };
         let centerHeight = (app.canvas.height / 2) - (buttonDimensions.height / 2);
-        const leftButton = new Graphics();
-        leftButton
-            .rect(0, centerHeight, buttonDimensions.width, buttonDimensions.height)
-            .fill({color: 'black'});
+        const leftButton = new Sprite(buttonTextureRef.current);
+        leftButton.scale.set(-1, 1.5);
+        leftButton.position.set(leftButton.width, centerHeight);
         leftButton.eventMode = 'static';
         leftButton.on('pointerdown', () => pageButtonClick(-1));
         leftButtonRef.current = leftButton;
 
-        const rightButton = new Graphics();
-        rightButton
-            .rect(app.canvas.width - buttonDimensions.width, centerHeight, buttonDimensions.width, buttonDimensions.height)
-            .fill({color: 'black'});
+        const rightButton = new Sprite(buttonTextureRef.current);
+        rightButton.scale.set(1, 1.5);
+        rightButton.position.set(app.canvas.width - leftButton.width, centerHeight);
         rightButton.eventMode = 'static';
         rightButton.on('pointerdown', () => pageButtonClick(1));
         rightButtonRef.current = rightButton;
@@ -94,10 +103,19 @@ function JournalEntries(){
             const app = new Application();
             await app.init({backgroundColor: '#b63fa0ff', resizeTo: containerRef.current});
             containerRef.current.appendChild(app.canvas);
+            journalTextureRef.current = await Assets.load("/assets/JournalTexture.png");
+            buttonTextureRef.current = await Assets.load("/assets/JournalButton.png");
+            Assets.addBundle('fonts', [{
+                alias: 'CasualCursive',
+                src: "/assets/CasualCursive.ttf"
+            }]);
+            await Assets.loadBundle('fonts');
             generateButtons(app);
-            renderButtons(app);
             renderJournalEntry(app, JournalEntryData.Entries[currentPage]);
+            renderButtons(app);
             appRef.current = app;
+            themeMusicRef.current = new Howl({src: [JournalTheme], loop: true, volume: 0.2});
+            themeMusicRef.current.play();
         }
 
         init();
@@ -112,9 +130,10 @@ function JournalEntries(){
 
     useEffect(() => {
         return () => {
-            
+            themeMusicRef.current?.stop();
         };
-    }, [location])
+    }, [location]);
+
     return(
         <>
             <div

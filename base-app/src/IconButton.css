@@ -1,0 +1,11 @@
+.icon-button{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: fit-content;
+    align-items: center;
+}
+
+.icon-button img{
+    max-width: 32px;
+}

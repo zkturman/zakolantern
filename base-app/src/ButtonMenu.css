@@ -1,0 +1,25 @@
+
+.nav-button-container {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background-color: black;
+}
+
+.nav-button-container nav {
+  margin-bottom: 0px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.nav-button-container nav * {
+  margin: 0px;
+}
+
+.active-link {
+    color: white !important;
+}

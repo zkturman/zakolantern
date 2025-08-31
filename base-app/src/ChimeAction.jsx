@@ -1,7 +1,8 @@
-import {Application, Graphics, Container} from 'pixi.js';
+import {Application, Graphics, Container, Assets, Sprite} from 'pixi.js';
 import { useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Howl } from 'howler';
+import { ChimeSfx, ChimeTheme, ChimeTextures } from './data/assetkeys';
 import './ChimeAction.css';
 
 function ChimeAction(){
@@ -11,14 +12,14 @@ function ChimeAction(){
     const loadingRef = useRef(false);
     const solutionPattern = [4, 2, 4, 3];
     const currentAnswer = [0];
-    const chimeSounds = 
-    [
-        new Howl({src: ["assets/Chime1.wav"], volume: 1.0}),
-        new Howl({src: ["assets/Chime2.wav"], volume: 1.0}),
-        new Howl({src: ["assets/Chime4.wav"], volume: 1.0}),
-        new Howl({src: ["assets/Chime3.wav"], volume: 1.0}),
-    ];
-    const themeMusicRef = useRef(null);    const navigate = useNavigate();
+    const chimeSounds = ChimeSfx.map(asset => new Howl({
+        src: [asset],
+        volume: 0.8
+    }));
+    const themeMusicRef = useRef(null);  
+    const chimeTextureRef = useRef(null);  
+    const wallTextureRef = useRef(null);
+    const navigate = useNavigate();
     const location = useLocation();
 
     function chimeClick(chimeIndex){
@@ -46,6 +47,22 @@ function ChimeAction(){
         }
     }
 
+    function generateWalls(app){
+        let scale = 1;
+        if (app.canvas.width / app.canvas.height < 1){
+            scale = 0.5;
+        }
+        let leftWall = new Sprite(wallTextureRef.current);
+        leftWall.height = app.canvas.height;
+        leftWall.scale.x = scale;
+        app.stage.addChild(leftWall);
+        let rightWall = new Sprite(wallTextureRef.current);
+        rightWall.height = app.canvas.height;
+        rightWall.scale.x = -1 * scale;
+        rightWall.position.set(app.canvas.width, 0);
+        app.stage.addChild(rightWall);
+    }
+
     function generateChimes(app){
         const ratio = app.canvas.width / app.canvas.height;
         const container = new Container();
@@ -62,10 +79,11 @@ function ChimeAction(){
         }
 
         for (let i = 0; i < 4; i ++){
-            let chimeSprite = new Graphics();
-            chimeSprite
-                .rect((i * (width + buffer)), 0, width, height)
-                .fill({color: '#6c6b6bff'});
+            console.log(chimeTextureRef.current[i]);
+            let chimeSprite = new Sprite(chimeTextureRef.current[i]);
+            chimeSprite.width = width;
+            chimeSprite.height = height;
+            chimeSprite.position.set((i * (width + buffer)), 0);
             chimeSprite.eventMode = 'static';
             chimeSprite.on('pointerdown', () => chimeClick(i));
             container.addChild(chimeSprite);
@@ -73,6 +91,11 @@ function ChimeAction(){
         container.position.set(app.canvas.width / 2 - (container.width / 2),
             app.canvas.height / 2 - (container.height / 2));
         app.stage.addChild(container);
+        let crossbeam = new Graphics();
+        crossbeam
+            .rect(0, container.y - (width * 1.5), app.canvas.width, width * 1.5)
+            .fill({color: '#5f4315ff'});
+        app.stage.addChild(crossbeam);
     }
 
     useEffect(() => {
@@ -84,10 +107,15 @@ function ChimeAction(){
             await app.init({ background: 'black', resizeTo: containerRef.current});
             containerRef.current?.appendChild(app.canvas);
             app.resize();
+            chimeTextureRef.current = await Promise.all(ChimeTextures.map(asset => Assets.load(asset)));
+            console.log(chimeTextureRef.current);
+            wallTextureRef.current = await Assets.load("/assets/ChapelWall.png");
+            generateWalls(app);
             generateChimes(app);
             appRef.current = app;
-            themeMusicRef.current = new Howl({src: ["assets/ChimeTheme.wav"], loop: true, volume: 0.8});
+            themeMusicRef.current = new Howl({src: [ChimeTheme], loop: true, volume: 0.5});
             themeMusicRef.current.play();
+            console.log(themeMusicRef.current);
         };
         init();
 
@@ -95,7 +123,6 @@ function ChimeAction(){
             if (appRef.current) {
                 appRef.current.destroy(true, true);
                 appRef.current = null;
-                themeMusicRef.current.stop();
             }
         };
     }, []);

@@ -1,31 +1,48 @@
+import { useState } from 'react';
 import './Home.css';
 
 function Home(){
+    const [storyIndex, setStoryIndex] = useState(0);
+    const scenarioData = 
+    [
+        [
+            {
+                text: 'Reportings from campers and climbers in Fury Gorge have cropped up over the last several decades.',
+            },        
+            {
+                text: 'Weird shadows in the night, strange calls. Missing people with no bodies ever found.',
+            },
+            {
+                text: 'A recent group discovered evidence of an old settlement at the base of the waterfall, the Devil\'s Tongue.',
+            },
+        ],
+        [
+            {
+                text: 'You are part of the research group investigating the ruins...',
+            },
+            {
+                text: 'One of your team members disappeared overnight.',
+            },            
+            {
+                text: 'The only building left from the settlement, an old chapel, seems to be the source of the evil, but can you solve the mystery before time runs out?',
+            },
+        ]
+    ];
+
     return (
         <>
-            <div class="scenario-container">
-                <p>
-                    Reportings from campers and climbers in Fury Gorge have cropped up
-                    over the last several decades.
-                </p>
-                <p>
-                    Weird shadows in the night, strange calls. Missing people with no bodies ever 
-                    found.
-                </p>
-                <p>
-                    A recent group discovered evidence of an old settlement at the base of the waterfall, 
-                    the Devil's Tongue.
-                </p>
-                <p>
-                    You are part of the research group investigating the ruins...
-                </p>
-                <p>
-                    One of your team members disappeared overnight.
-                </p>
-                <p>
-                    The only building left from the settlement, an old chapel, seems to be the source of
-                    the evil, but can you solve the mystery before time runs out?
-                </p>
+            <div className="scenario-container">
+                {scenarioData[storyIndex].map((item, index) => (
+                    <p 
+                        key={`${storyIndex}-${index}`} 
+                        className="story-note fade-in" 
+                        style={{
+                            animationDelay: `${index}s`
+                        }}>{item.text}</p>
+                ))}
+                {(storyIndex + 1 < scenarioData.length) && <button  onClick={() => {setStoryIndex(storyIndex + 1)}}>
+                    Continue
+                </button>}
             </div>
         </>
     );

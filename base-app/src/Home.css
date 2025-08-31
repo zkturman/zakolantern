@@ -1,6 +1,17 @@
-.scenario-container{
+.scenario-container {
     margin: 10px;
 }
-.scenario-container p{
+
+@keyframes fade-in{
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.story-note {
     text-align: left;
+    opacity: 0;
+    animation-name: fade-in;
+    animation-duration: 1s;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
 }

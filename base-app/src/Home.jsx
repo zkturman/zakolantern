@@ -40,7 +40,12 @@ function Home(){
                             animationDelay: `${index}s`
                         }}>{item.text}</p>
                 ))}
-                {(storyIndex + 1 < scenarioData.length) && <button  onClick={() => {setStoryIndex(storyIndex + 1)}}>
+                {(storyIndex + 1 < scenarioData.length) && <button
+                    className="fade-in" onClick={() => {setStoryIndex(storyIndex + 1)}}
+                    style={{
+                        animationDelay: `${scenarioData[storyIndex].length}s`
+                    }}
+                    >
                     Continue
                 </button>}
             </div>

@@ -35,13 +35,14 @@ function Home(){
 
     function buttonClick(){
         setStoryIndex(storyIndex + 1);
-        themeRef.current = new Howl({src: "/assets/IntroChime.wav", volume: 0.5, loop: false});
         themeRef.current.play();
     }
 
     useEffect(() => {
+        themeRef.current = new Howl({ src: [introChime], volume: 0.5, loop: false, preload: true });
+
         return () => {
-            themeRef.current?.stop();
+            // themeRef.current?.stop();
         }
     }, [location]);
 

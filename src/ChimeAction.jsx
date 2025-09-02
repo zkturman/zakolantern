@@ -113,7 +113,7 @@ function ChimeAction(){
             generateWalls(app);
             generateChimes(app);
             appRef.current = app;
-            themeMusicRef.current = new Howl({src: [ChimeTheme], loop: true, volume: 0.5});
+            themeMusicRef.current = new Howl({src: [ChimeTheme], loop: true, volume: 0.5, preload: true});
             themeMusicRef.current.play();
             console.log(themeMusicRef.current);
         };

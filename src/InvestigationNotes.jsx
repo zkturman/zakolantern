@@ -107,7 +107,7 @@ function InvestigationNotes(){
             await Assets.loadBundle('fonts');
             app.resize();
             renderNotebookTabs(app, ResearchEntryData.Entries);
-            themeMusicRef.current = new Howl({src: [ResearchTheme], loop: true, volume: 0.2});
+            themeMusicRef.current = new Howl({src: [ResearchTheme], loop: true, volume: 0.2, preload: true});
             themeMusicRef.current.play();
             appRef.current = app;
         }

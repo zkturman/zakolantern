@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Howl } from 'howler';
+import { Howler, Howl } from 'howler';
 import './Home.css';
 import { useLocation } from 'react-router-dom';
 

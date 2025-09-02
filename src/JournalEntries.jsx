@@ -114,7 +114,7 @@ function JournalEntries(){
             renderJournalEntry(app, JournalEntryData.Entries[currentPage]);
             renderButtons(app);
             appRef.current = app;
-            themeMusicRef.current = new Howl({src: [JournalTheme], loop: true, volume: 0.2});
+            themeMusicRef.current = new Howl({src: [JournalTheme], loop: true, volume: 0.2, preload: true});
             themeMusicRef.current.play();
         }
 

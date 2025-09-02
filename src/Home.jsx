@@ -36,10 +36,12 @@ function Home(){
     function buttonClick(){
         setStoryIndex(storyIndex + 1);
         themeRef.current.play();
+        themeRef.current = new Howl({src: ['/assets/IntroTheme.wav', '/assets/IntroTheme.mp3'], volume: 0.5, loop: true, preload: true});
+        themeRef.current.play();
     }
 
     useEffect(() => {
-        themeRef.current = new Howl({ src: ['/assets/IntroChime.wav'], volume: 0.5, loop: false, preload: true });
+        themeRef.current = new Howl({ src: ['/assets/IntroChime.wav', '/assets/IntroChime.mp3'], volume: 0.5, loop: false, preload: true });
 
         return () => {
             themeRef.current?.stop();

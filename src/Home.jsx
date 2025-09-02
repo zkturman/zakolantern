@@ -35,7 +35,10 @@ function Home(){
 
     function buttonClick(){
         setStoryIndex(storyIndex + 1);
-        themeRef.current.play();
+        var context = new AudioContext();
+        context.resume().then(()=> {
+            themeRef.current.play();
+        });
     }
 
     useEffect(() => {

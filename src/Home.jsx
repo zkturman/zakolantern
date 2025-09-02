@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { Howl } from 'howler';
 import './Home.css';
+import { useLocation } from 'react-router-dom';
 
 function Home(){
     const [storyIndex, setStoryIndex] = useState(0);
+    const location = useLocation();
+    const themeRef = useRef(null);
     const scenarioData = 
     [
         [
@@ -29,6 +33,18 @@ function Home(){
         ]
     ];
 
+    function buttonClick(){
+        setStoryIndex(storyIndex + 1);
+        themeRef.current.play();
+    }
+
+    useEffect(() => {
+        themeRef.current = new Howl({src: "/assets/IntroChime.wav", volume: 0.5, loop: false});
+        return () => {
+            themeRef.current?.stop();
+        }
+    }, [location]);
+
     return (
         <>
             <div className="scenario-container">
@@ -41,7 +57,7 @@ function Home(){
                         }}>{item.text}</p>
                 ))}
                 {(storyIndex + 1 < scenarioData.length) && <button
-                    className="fade-in" onClick={() => {setStoryIndex(storyIndex + 1)}}
+                    className="fade-in" onClick={() => {buttonClick();}}
                     style={{
                         animationDelay: `${scenarioData[storyIndex].length}s`
                     }}

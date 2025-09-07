@@ -97,7 +97,7 @@ function InvestigationNotes(){
         async function init(){
             loadingRef.current = true;
             const app = new Application();
-            await app.init({backgroundColor: '#3d150cff', resizeTo: containerRef.current});
+            await app.init({backgroundColor: 'black', resizeTo: containerRef.current});
             containerRef.current.appendChild(app.canvas);
             labelTextureRef.current = await Assets.load('/assets/DrawerTab.png');
             Assets.addBundle('fonts', [{

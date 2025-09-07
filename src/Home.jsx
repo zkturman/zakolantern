@@ -54,13 +54,13 @@ function Home(){
                 {scenarioData[storyIndex].map((item, index) => (
                     <p 
                         key={`${storyIndex}-${index}`} 
-                        className="story-note fade-in" 
+                        className="story-note body-text-color fade-in" 
                         style={{
                             animationDelay: `${index}s`
                         }}>{item.text}</p>
                 ))}
                 {(storyIndex + 1 < scenarioData.length) && <button
-                    className="fade-in" onClick={() => {buttonClick();}}
+                    className="fade-in body-text-color" onClick={() => {buttonClick();}}
                     style={{
                         animationDelay: `${scenarioData[storyIndex].length}s`
                     }}

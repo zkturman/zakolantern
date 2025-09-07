@@ -1,0 +1,12 @@
+.invite-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background-image: url("/assets/InviteBackground.png");
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}

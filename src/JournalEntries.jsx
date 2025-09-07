@@ -101,7 +101,7 @@ function JournalEntries(){
         async function init(){
             loadingRef.current = true;
             const app = new Application();
-            await app.init({backgroundColor: '#b63fa0ff', resizeTo: containerRef.current});
+            await app.init({backgroundColor: 'black', resizeTo: containerRef.current});
             containerRef.current.appendChild(app.canvas);
             journalTextureRef.current = await Assets.load("/assets/JournalTexture.png");
             buttonTextureRef.current = await Assets.load("/assets/JournalButton.png");

@@ -65,3 +65,17 @@ button:focus-visible {
     text-shadow: 2px 2px 0px #350d0d;
     color: #d80000 !important;
 }
+
+@media (prefers-color-scheme: dark) {
+  .body-text-color{
+    text-shadow: 2px 2px 0px #350d0d;
+    color: #d80000 !important;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .body-text-color{
+    text-shadow: 2px 2px 0px #350d0d;
+    color: #d80000 !important;
+  }
+}

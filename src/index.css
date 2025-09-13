@@ -76,6 +76,10 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+  .body-text-color{
+    text-shadow: 2px 2px 0px #350d0d;
+    color: #d80000;
+  }
 }
 
 .body-text-color{

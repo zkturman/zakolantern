@@ -3,12 +3,13 @@ import './Invite.css';
 function Invite(){
     const partyDetails = [
         {
-            header: "Banish the Watcher",
+            header: "The Watcher Appears",
             body: [
-                <p className='body-text-color'>The adventures continues during this year's 
-                annual Halloween party. Join the 60s research team at the Devil's Tongue Settlement 
-                in Fury Gorge. It's up to you to seal the demon that your team has 
-                accidentally unleashed!</p>
+                <p className='body-text-color'>And he is hungry. Join the 60s 
+                research team at the Devil's Tongue Settlement in Fury Gorge. 
+                It's up to you to seal the demon that your team has 
+                accidentally unleashed! The adventures continues during this year's 
+                annual Halloween party.</p>
             ]
         },
         {

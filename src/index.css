@@ -65,7 +65,14 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-.body-text-color{
+@media (prefers-color-scheme: dark) {
+  .body-text-color{
     text-shadow: 2px 2px 0px #350d0d;
     color: #d80000;
+  }
+}
+
+.body-text-color{
+    text-shadow: 2px 2px 0px #350d0d;
+    color: #d80000 !important;
 }

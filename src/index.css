@@ -16,7 +16,7 @@
 html{
   height: 100%;
   width: 100%;
-  color-scheme: light; /* declares you handle both */
+  color-scheme: light;
 }
 
 a {
@@ -65,9 +65,8 @@ button:focus-visible {
 }
 
 @media (prefers-color-scheme: dark) {
-  .body-text-color{
-    text-shadow: 2px 2px 0px #350d0d;
-    color: #d80000;
+  html {
+    color-scheme: light; /* force light scheme even in dark mode */
   }
 }
 

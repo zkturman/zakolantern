@@ -1,7 +1,7 @@
 .invite-container {
-    position: absolute;
-    height: 100%;
-    width: 100%;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
@@ -10,3 +10,35 @@
     background-position: center;
     z-index: -1;
 }
+
+.invite-details{
+    margin: 5px;
+}
+
+.details-body p{
+    text-align: left;
+    font-size: larger;
+    font-weight: bold;
+    margin: 0px;
+}
+
+.details-body ul{
+    margin-top: 0px;
+}
+
+.details-body li{
+    text-align: left;
+    font-size: large;
+    font-weight: bold;
+}
+
+.details-body{
+    margin: 0px;
+}
+
+.screening-note{
+    font-size: large !important;
+    font-weight: bold;
+    margin-left: 20px !important;
+}
+

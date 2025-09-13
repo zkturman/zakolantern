@@ -1,3 +1,7 @@
 #journal-container {
     flex-grow: 1;
 }
+
+.route-content:has(#journal-container){
+    overflow: hidden !important;
+}

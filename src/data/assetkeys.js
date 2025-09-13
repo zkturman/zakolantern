@@ -4,6 +4,7 @@ export const ChimeSfx = [
     "assets/Chime3.wav",
     "assets/Chime4.wav",
 ];
+export const ChimeDoomSfx = "assets/UnleashedSound.wav"
 export const JournalSfx = [
     "assets/PageTurn1.wav",
     "assets/PageTurn2.wav",
@@ -28,6 +29,7 @@ export const ChimeTextures = [
     "/assets/Chime4.png",
 ];
 export const ChapelWallTexture = "/assets/ChapelWall.png";
+export const ChapelBeamTexture = "/assets/WoodTexture.png";
 export const JournalTexture = "/assets/JournalTexture.png";
 export const JournalButtonTexture = "/assets/JournalButton.png";
 export const DrawerTabTexture = "/assets/DrawerTab.png";

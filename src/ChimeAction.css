@@ -1,3 +1,7 @@
 #chime-container {
     flex-grow: 1;
 }
+
+.route-content:has(#chime-container){
+    overflow: hidden !important;
+}

@@ -81,14 +81,14 @@ function JournalEntries(){
         };
         let centerHeight = (app.canvas.height / 2) - (buttonDimensions.height / 2);
         const leftButton = new Sprite(buttonTextureRef.current);
-        leftButton.scale.set(-1, 1.5);
+        leftButton.scale.set(-0.5, 2);
         leftButton.position.set(leftButton.width, centerHeight);
         leftButton.eventMode = 'static';
         leftButton.on('pointerdown', () => pageButtonClick(-1));
         leftButtonRef.current = leftButton;
 
         const rightButton = new Sprite(buttonTextureRef.current);
-        rightButton.scale.set(1, 1.5);
+        rightButton.scale.set(0.5, 2);
         rightButton.position.set(app.canvas.width - leftButton.width, centerHeight);
         rightButton.eventMode = 'static';
         rightButton.on('pointerdown', () => pageButtonClick(1));

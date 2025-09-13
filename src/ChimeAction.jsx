@@ -2,7 +2,7 @@ import {Application, Graphics, Container, Assets, Sprite} from 'pixi.js';
 import { useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Howl } from 'howler';
-import { ChimeSfx, ChimeTheme, ChimeTextures } from './data/assetkeys';
+import { ChimeSfx, ChimeTheme, ChimeTextures, ChimeDoomSfx, ChapelBeamTexture, ChapelWallTexture } from './data/assetkeys';
 import './ChimeAction.css';
 
 function ChimeAction(){
@@ -16,19 +16,24 @@ function ChimeAction(){
         src: [asset],
         volume: 0.8
     }));
+    const unleashedSound = new Howl({src: ChimeDoomSfx, volume: 0.6});
     const themeMusicRef = useRef(null);  
     const chimeTextureRef = useRef(null);  
     const wallTextureRef = useRef(null);
+    const beamTextureRef = useRef(null);
     const navigate = useNavigate();
     const location = useLocation();
 
     function chimeClick(chimeIndex){
-        chimeSounds[chimeIndex].play();
         let numberCorrect = 0;
         for (let i = 0; i < currentAnswer.length; i++){
             if (currentAnswer[i] === solutionPattern[i]){
                 numberCorrect++;
             }
+        }
+
+        if (numberCorrect < solutionPattern.length){
+            chimeSounds[chimeIndex].play();
         }
         
         if (numberCorrect === chimeIndex){
@@ -43,6 +48,7 @@ function ChimeAction(){
         }
 
         if (currentAnswer.length > solutionPattern.length){
+            unleashedSound.play();
             navigate("/invite");
         }
     }
@@ -91,10 +97,10 @@ function ChimeAction(){
         container.position.set(app.canvas.width / 2 - (container.width / 2),
             app.canvas.height / 2 - (container.height / 2));
         app.stage.addChild(container);
-        let crossbeam = new Graphics();
-        crossbeam
-            .rect(0, container.y - (width * 1.5), app.canvas.width, width * 1.5)
-            .fill({color: '#5f4315ff'});
+        let crossbeam = new Sprite(beamTextureRef.current);
+        crossbeam.width = app.canvas.width;
+        crossbeam.height = width * 1.5;
+        crossbeam.position.set(0, 0);
         app.stage.addChild(crossbeam);
     }
 
@@ -109,7 +115,8 @@ function ChimeAction(){
             app.resize();
             chimeTextureRef.current = await Promise.all(ChimeTextures.map(asset => Assets.load(asset)));
             console.log(chimeTextureRef.current);
-            wallTextureRef.current = await Assets.load("/assets/ChapelWall.png");
+            wallTextureRef.current = await Assets.load(ChapelWallTexture);
+            beamTextureRef.current = await Assets.load(ChapelBeamTexture);
             generateWalls(app);
             generateChimes(app);
             appRef.current = app;

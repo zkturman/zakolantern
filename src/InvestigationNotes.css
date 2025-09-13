@@ -1,3 +1,7 @@
 #investigation-container{
     flex-grow: 1;
 }
+
+.route-content:has(#investigation-container){
+    overflow: hidden !important;
+}

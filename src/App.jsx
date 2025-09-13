@@ -14,13 +14,15 @@ function App() {
         <ButtonMenu></ButtonMenu>
 
         {/* Routes */}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/journal" element={<JournalEntries />} />
-          <Route path="/investigate" element={<InvestigationNotes />} />
-          <Route path="/chimes" element={<ChimeAction />} />
-          <Route path="/invite" element={<Invite />} />
-        </Routes>
+        <div className='route-content'>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/journal" element={<JournalEntries />} />
+            <Route path="/investigate" element={<InvestigationNotes />} />
+            <Route path="/chimes" element={<ChimeAction />} />
+            <Route path="/invite" element={<Invite />} />
+          </Routes>
+        </div>
       </BrowserRouter>
     </>
   );

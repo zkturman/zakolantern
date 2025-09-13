@@ -42,11 +42,16 @@ function InvestigationNotes(){
         container.addChild(shadow);
         container.addChild(noteBackground);
         const style = new TextStyle({
-            fontFamily: 'OldNewspaperTypes'
+            fontFamily: 'OldNewspaperTypes',
+            wordWrap: true, 
+            wordWrapWidth: app.canvas.width * 0.8
         });
         const authorLabel = new Text({text: entry.Author, style: style});
         container.addChild(authorLabel);
-        const detailsText = new Text({text: entry.Text, style: style});
+        const detailsText = new Text({
+            text: entry.Text, 
+            style: style, 
+        });
         detailsText.position.set(0, 100);
         container.addChild(detailsText);
         container.position.set((app.canvas.width / 2) - (container.width / 2), 
@@ -97,7 +102,7 @@ function InvestigationNotes(){
         async function init(){
             loadingRef.current = true;
             const app = new Application();
-            await app.init({backgroundColor: 'black', resizeTo: containerRef.current});
+            await app.init({backgroundColor: '#4a1a0d', resizeTo: containerRef.current});
             containerRef.current.appendChild(app.canvas);
             labelTextureRef.current = await Assets.load('/assets/DrawerTab.png');
             Assets.addBundle('fonts', [{

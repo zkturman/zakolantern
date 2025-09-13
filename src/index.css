@@ -77,6 +77,6 @@ button:focus-visible {
 }
 
 .body-text-color{
-    text-shadow: 2px 2px 0px #350d0d;
+      -webkit-text-stroke: 0.5px #350d0d;
     color: #d80000;
 }

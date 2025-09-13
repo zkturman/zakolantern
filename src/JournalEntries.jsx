@@ -47,7 +47,7 @@ function JournalEntries(){
             wordWrap: true,
             wordWrapWidth: width,
             fontFamily: 'CasualCursive',
-            fontSize: 45,
+            fontSize: 30,
         });
         const journalTile = new TilingSprite({
             texture: journalTextureRef.current, 

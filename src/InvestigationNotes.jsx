@@ -43,6 +43,7 @@ function InvestigationNotes(){
         container.addChild(noteBackground);
         const style = new TextStyle({
             fontFamily: 'OldNewspaperTypes',
+            fontSize: 20,
             wordWrap: true, 
             wordWrapWidth: app.canvas.width * 0.8
         });

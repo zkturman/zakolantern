@@ -33,12 +33,12 @@ const JournalEntryData = {
         {
             Date: "December 1834",
             Text: "Each song the Watcher sings is a clue. It has started singing like the bells in "
-                + "the chapel. The song is simple, just four notes in a pattern. Such beauty in "
-                + "the simplicity. The Watcher sees all and brings the night."
+                + "the chapel. The song is simple. Each note is repeated before the next is played. " 
+                + "Such beauty in the simplicity. The Watcher sees all and brings the night."
         },
         {
             Date: "January 1835",
-            Text: "Of course it started with four chimes."
+            Text: "Of course the song began with the first chime range four times."
                 + " It was beautiful, the Watcher revealed itself. The body of a shadow. It welcomed us, "
                 + " its children, into its arms and protection. Soon, I will go to this new home as well."
         }
@@ -59,7 +59,7 @@ const ResearchEntryData = {
             Date: "Aug. 1964",
             Text: "Maybe it's just the journal, the only evidence we have, but "
                 + "I have started dreaming of a large shadow that sings to me. It makes me think "
-                + "of the chimes. The song must be played left to right."
+                + "of the chimes. I think the song must be played left to right."
         },        
         {
             Author: "Jones, Marita",

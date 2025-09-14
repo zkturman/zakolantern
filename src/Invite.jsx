@@ -5,11 +5,19 @@ function Invite(){
         {
             header: "The Watcher Appears",
             body: [
-                <p className='body-text-color'>And he is hungry. Join the 60s 
-                research team at the Devil's Tongue Settlement in Fury Gorge. 
-                It's up to you to seal the demon that your team has 
-                accidentally unleashed! The adventures continues during this year's 
-                annual Halloween party.</p>
+                <p className='body-text-color story-body'>
+                    The chimes ring out, echoing in the chapel. A growing sound that
+                    can only be described as the shadows <em>themselves</em>. A body, 
+                    made of shadows emerges from behind the chimes. It's eyes glowing in 
+                    the darkness. It's the Watcher.
+                </p>,
+                <p className='body-text-color story-body'>
+                    And he is hungry. Join rest of the 60s 
+                    research team at the Devil's Tongue Settlement in Fury Gorge. 
+                    It's up to you to seal the demon that your team has 
+                    accidentally unleashed! The adventures continues during this year's 
+                    annual Halloween party.
+                </p>
             ]
         },
         {

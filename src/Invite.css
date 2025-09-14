@@ -22,6 +22,11 @@
     margin: 0px;
 }
 
+.invite-details h2 {
+    background-image: linear-gradient(#392121, #0c0b0b);
+    border-radius: 4px;
+}
+
 .details-body ul{
     margin-top: 0px;
 }
@@ -44,4 +49,8 @@
 
 strong{
     font-weight: 900;
+}
+
+.story-body{
+    text-indent: 1em;
 }

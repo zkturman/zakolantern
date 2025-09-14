@@ -38,7 +38,7 @@ const JournalEntryData = {
         },
         {
             Date: "January 1835",
-            Text: "Of course the song began with the first chime range four times."
+            Text: "Of course the song began with the first chime rang four times."
                 + " It was beautiful, the Watcher revealed itself. The body of a shadow. It welcomed us, "
                 + " its children, into its arms and protection. Soon, I will go to this new home as well."
         }

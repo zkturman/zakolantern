@@ -59,7 +59,7 @@ const ResearchEntryData = {
             Date: "Aug. 1964",
             Text: "Maybe it's just the journal, the only evidence we have, but "
                 + "I have started dreaming of a large shadow that sings to me. It makes me think "
-                + "of the chimes. I think the song must be played left to right."
+                + "of the chimes. I think the chimes must be played left to right."
         },        
         {
             Author: "Jones, Marita",
@@ -87,8 +87,9 @@ const ResearchEntryData = {
         {
             Author: "❤️ Marita ❤️",
             Date: "Nov '64",
-            Text: "Silly boy, his song is simple. All you have to do is look. The second chime "
-            + "is the one rang twice. He wants you to play the song! Hurry!!"
+            Text: "Silly boy, his song is simple. All you have to do is look. Play one chime at a time, "
+                + "strike it up to four times. The second chime rings only twice. He wants you to "
+                + "play the song! Hurry!!"
         },
     ]
 };

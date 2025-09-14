@@ -26,7 +26,7 @@ function Invite(){
                 <p className='body-text-color'><strong>When: </strong>1 November 2025'</p>,
                 <p className='body-text-color'><strong>Where: </strong>1 Hanbury</p>,
                 <p className='body-text-color'><strong>What to wear? </strong> Fancy dress</p>,
-                <p className='body-text-color'><strong>Theme: </strong>Indiana Jones meets The Exorcist. The 60s.</p>
+                <p className='body-text-color'><strong>What to bring? </strong> Yourself!</p>,
             ]
         },
         {

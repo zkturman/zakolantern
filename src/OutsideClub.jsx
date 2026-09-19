@@ -1,12 +1,18 @@
 import {Application, Graphics, Container, Text, TextStyle, Assets, TilingSprite, Sprite} from 'pixi.js'
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
+import { OverworldCharacter } from './gamemodules/OverworldCharacter.js';
 import { JournalEntryData } from './data/database.js';
 import { JournalSfx, JournalTheme } from './data/assetkeys.js';
 import { Howl } from 'howler';
-import './JournalEntries.css';
+import './OutsideClub.css';
+import { Vector2D } from './gamecore/Vector2D.js';
+import { Arturo, BorisBlank, BorisHelpful } from './gamemodules/CharacterData.js';
+import { GameObject } from './gamecore/GameObject.js';
+import { OverworldClubEntrance } from './gamemodules/OverworldClubEntrance.js';
+import { DialogTemplate } from './gamemodules/DialogTemplate.js';
 
-function JournalEntries(){
+function OutsideClub(){
     const containerRef = useRef(null);
     const appRef = useRef(null);
     const loadingRef = useRef(false);
@@ -103,19 +109,60 @@ function JournalEntries(){
             const app = new Application();
             await app.init({backgroundColor: 'black', resizeTo: containerRef.current});
             containerRef.current.appendChild(app.canvas);
-            journalTextureRef.current = await Assets.load("/assets/JournalTexture.png");
-            buttonTextureRef.current = await Assets.load("/assets/JournalButton.png");
-            Assets.addBundle('fonts', [{
-                alias: 'CasualCursive',
-                src: "/assets/CasualCursive.ttf"
-            }]);
-            await Assets.loadBundle('fonts');
-            generateButtons(app);
-            renderJournalEntry(app, JournalEntryData.Entries[currentPage]);
-            renderButtons(app);
+            
+              let context = {
+                app: app,
+                gameObjects: [],
+                colliderId: 0,
+                colliders: [],
+                collisions: new Map(),
+                controllerKey: 'keyboard',
+                endGameEvent: () => navigate('/2026/invite'),
+            };
+
+            let BorisBlankCharacter = new OverworldCharacter(context, BorisBlank, new Vector2D(200, 500));
+            context.gameObjects.push(BorisBlankCharacter);
+            let ArturoCharacter = new OverworldCharacter(context, Arturo, new Vector2D(40, 300));
+            ArturoCharacter.hide();
+            context.gameObjects.push(ArturoCharacter);
+
+            let BorisFinalCharacter = new OverworldCharacter(context, BorisHelpful, new Vector2D(200, 500));
+            BorisFinalCharacter.hide();
+            context.gameObjects.push(BorisFinalCharacter);
+            
+            BorisBlankCharacter.dialogEndEvent = () => {
+                ArturoCharacter.show();
+            }
+
+            ArturoCharacter.dialogEndEvent = () => {
+                BorisFinalCharacter.show();
+                GameObject.destroy(BorisBlankCharacter);
+            }
+
+            let clubEntrance = new OverworldClubEntrance(context);
+            context.dialog = new DialogTemplate(context);
+
+            // journalTextureRef.current = await Assets.load("/assets/JournalTexture.png");
+            // buttonTextureRef.current = await Assets.load("/assets/JournalButton.png");
+            // Assets.addBundle('fonts', [{
+            //     alias: 'CasualCursive',
+            //     src: "/assets/CasualCursive.ttf"
+            // }]);
+            // await Assets.loadBundle('fonts');
+            // generateButtons(app);
+            // renderJournalEntry(app, JournalEntryData.Entries[currentPage]);
+            // renderButtons(app);
+            app.ticker.add((time) => {
+                for (let i = 0; i < context.gameObjects.length; i++){
+                    if (!context.gameObjects[i].isDestroyed && context.gameObjects[i].isEnabled){
+                        context.gameObjects[i].update(time.deltaTime);
+                        context.gameObjects[i].draw();
+                    }
+                }
+            });
             appRef.current = app;
-            themeMusicRef.current = new Howl({src: [JournalTheme], loop: true, volume: 0.2, preload: true});
-            themeMusicRef.current.play();
+            // themeMusicRef.current = new Howl({src: [JournalTheme], loop: true, volume: 0.2, preload: true});
+            // themeMusicRef.current.play();
         }
 
         init();
@@ -144,4 +191,4 @@ function JournalEntries(){
     );
 }
 
-export {JournalEntries};
+export {OutsideClub};

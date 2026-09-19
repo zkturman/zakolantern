@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Howler, Howl } from 'howler';
 import './Home.css';
 import { useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function Home(){
     const [storyIndex, setStoryIndex] = useState(0);
@@ -50,23 +51,10 @@ function Home(){
 
     return (
         <>
-            <div className="scenario-container">
-                {scenarioData[storyIndex].map((item, index) => (
-                    <p 
-                        key={`${storyIndex}-${index}`} 
-                        className="story-note body-text-color fade-in" 
-                        style={{
-                            animationDelay: `${index}s`
-                        }}>{item.text}</p>
-                ))}
-                {(storyIndex + 1 < scenarioData.length) && <button
-                    className="fade-in body-text-color" onClick={() => {buttonClick();}}
-                    style={{
-                        animationDelay: `${scenarioData[storyIndex].length}s`
-                    }}
-                    >
-                    Continue
-                </button>}
+            <div>
+                <NavLink to="/game">
+                    <span>Play</span>
+                </NavLink> 
             </div>
         </>
     );

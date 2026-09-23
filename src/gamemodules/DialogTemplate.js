@@ -2,6 +2,7 @@ import { GameObject } from "../gamecore/GameObject";
 import { Vector2D } from "../gamecore/Vector2D";
 import { Container, Graphics, TextStyle, Text, styleAttributes } from "pixi.js";
 import { MenuButton } from "./MenuButton";
+import { FadeAnimator, FloatAnimator } from "./MenuAnimator";
 
 const dialogStyle = new TextStyle({
     fontFamily: 'Arial',
@@ -23,6 +24,7 @@ const labelStyle = new TextStyle({
 
 class DialogTemplate extends GameObject {
     closedEvent = null;
+    floatAnimator = null;
     
     constructor(context, dialogData) {
         super(context, new Vector2D(0, 0), new Vector2D(0, 0));
@@ -61,14 +63,18 @@ class DialogTemplate extends GameObject {
         this.generateBackButton();
 
         this.dialogSprite.position.set((this.dialogContainer.width / 2) - (this.dialogSprite.width / 2),
-            (this.dialogContainer.height / 2) - this.dialogSprite.height);
+            50);
         this.dialogBox.position.set((this.dialogContainer.width / 2) - this.dialogBox.width / 2,
             this.dialogSprite.y + this.dialogSprite.height);
         this.dialogButton.setPosition((this.dialogContainer.width / 2) - this.dialogButton.width / 2,
             this.dialogBox.y + this.dialogBox.height);
         this.backButton.setPosition((this.dialogContainer.width / 2) - this.backButton.width / 2,
-            this.dialogButton.y + this.dialogButton.height);
+            this.context.app.canvas.height - this.backButton.height - 20);
         this.dialogContainer.visible = false;
+
+        this.floatAnimator = new FloatAnimator(this.dialogSprite, .5);
+        this.fadeAnimator = new FadeAnimator(this.dialogSprite, 1);
+        console.log(this.dialogSprite.getGlobalPosition());
     }
 
     generateDialogBackground(){
@@ -164,6 +170,17 @@ class DialogTemplate extends GameObject {
 
     show(){
         this.dialogContainer.visible = true;
+        this.floatAnimator.reset();
+        this.fadeAnimator.reset();
+    }
+
+    update(deltaTime){
+        if (!this.floatAnimator.isDone()){
+            this.floatAnimator.play(deltaTime);
+        }
+        if (!this.fadeAnimator.isDone()){
+            this.fadeAnimator.play(deltaTime);
+        }
     }
 }
 

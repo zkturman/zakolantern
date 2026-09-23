@@ -11,8 +11,9 @@ class OverworldClubEntrance extends GameObject{
         entranceSprite.fill('green');
         entranceSprite.eventMode = 'static';
         this.context.app.stage.addChild(entranceSprite);
-        
+
         this.passcodeScreen = new PasscodeScreen(context);
+        this.context.gameObjects.push(this.passcodeScreen);
         entranceSprite.on('mousedown', () => {this.openPasscodeScreen()});
         entranceSprite.on('touchstart', () => {this.openPasscodeScreen()});
     }

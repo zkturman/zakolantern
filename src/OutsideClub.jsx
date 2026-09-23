@@ -11,6 +11,7 @@ import { Arturo, BorisBlank, BorisHelpful } from './gamemodules/CharacterData.js
 import { GameObject } from './gamecore/GameObject.js';
 import { OverworldClubEntrance } from './gamemodules/OverworldClubEntrance.js';
 import { DialogTemplate } from './gamemodules/DialogTemplate.js';
+import { GenerateCode } from './gamemodules/CodeGenerator.js';
 
 function OutsideClub(){
     const containerRef = useRef(null);
@@ -117,6 +118,7 @@ function OutsideClub(){
                 colliders: [],
                 collisions: new Map(),
                 controllerKey: 'keyboard',
+                code: GenerateCode(4),
                 endGameEvent: () => navigate('/2026/invite'),
             };
 
@@ -140,7 +142,9 @@ function OutsideClub(){
             }
 
             let clubEntrance = new OverworldClubEntrance(context);
+            context.gameObjects.push(clubEntrance);
             context.dialog = new DialogTemplate(context);
+            context.gameObjects.push(context.dialog);
 
             // journalTextureRef.current = await Assets.load("/assets/JournalTexture.png");
             // buttonTextureRef.current = await Assets.load("/assets/JournalButton.png");
@@ -155,7 +159,7 @@ function OutsideClub(){
             app.ticker.add((time) => {
                 for (let i = 0; i < context.gameObjects.length; i++){
                     if (!context.gameObjects[i].isDestroyed && context.gameObjects[i].isEnabled){
-                        context.gameObjects[i].update(time.deltaTime);
+                        context.gameObjects[i].update(time.deltaMS);
                         context.gameObjects[i].draw();
                     }
                 }

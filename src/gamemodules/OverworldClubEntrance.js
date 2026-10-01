@@ -1,14 +1,15 @@
-import { Graphics } from "pixi.js";
+import { Sprite } from "pixi.js";
 import { GameObject } from "../gamecore/GameObject";
 import { Vector2D } from "../gamecore/Vector2D";
 import { PasscodeScreen } from "./PasscodeScreen";
+import { GetTexture } from "../gamecore/AssetStore";
 
 class OverworldClubEntrance extends GameObject{
     constructor(context){
         super(context, new Vector2D(0, 0), new Vector2D(0, 0));
-        let entranceSprite = new Graphics();
-        entranceSprite.rect(0, 0, this.context.app.canvas.width, 300);
-        entranceSprite.fill('green');
+        let texture = GetTexture('/assets/ClubEntrance_Overworld.png');
+        let entranceSprite = new Sprite(texture);
+        entranceSprite.position.set((this.context.app.canvas.width / 2) - (entranceSprite.width / 2), 0);
         entranceSprite.eventMode = 'static';
         this.context.app.stage.addChild(entranceSprite);
 

@@ -3,6 +3,9 @@ const BorisBlank = {
     dialog: [
         "..."
     ],
+    sprites: [
+        '/assets/Boris_Dialog.png'
+    ]
 }
 
 const Arturo = {
@@ -20,6 +23,9 @@ const Arturo = {
         "And finally, you gotta move... ",
         "LEFT!",
         "Now, Boris, help 'em out."
+    ],
+    sprites: [
+        '/assets/Arturo_Dialog.png'
     ]
 }
 
@@ -32,6 +38,9 @@ const BorisHelpful = {
         "Blue is left. She left and now Boris blue.",
         "Yellow is right. Yellow is happy, and happy is right.",
         "Boris wish Boris was happy..."
+    ],
+    sprites: [
+        '/assets/Boris_Dialog.png'
     ]
 }
 

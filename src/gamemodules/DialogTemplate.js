@@ -1,8 +1,9 @@
 import { GameObject } from "../gamecore/GameObject";
 import { Vector2D } from "../gamecore/Vector2D";
-import { Container, Graphics, TextStyle, Text, styleAttributes } from "pixi.js";
+import { Container, Graphics, TextStyle, Text, styleAttributes, Sprite } from "pixi.js";
 import { MenuButton } from "./MenuButton";
 import { FadeAnimator, FloatAnimator } from "./MenuAnimator";
+import { GetTexture } from "../gamecore/AssetStore";
 
 const dialogStyle = new TextStyle({
     fontFamily: 'Arial',
@@ -37,12 +38,15 @@ class DialogTemplate extends GameObject {
         if (!this.dialogData){
             this.dialogData = {
                 name: "empty",
-                dialog: ["no dialog found"]
+                dialog: ["no dialog found"],
+                sprites: []
             }
         }
 
         this.nameText.text = this.dialogData.name;
         this.dialogText.text = this.dialogData.dialog[0];
+        this.dialogSprite.removeChildren();
+        this.generateDialogSprite();
         if (this.dialogData.dialog.length <= 1){
             this.dialogButton.setText('Leave');
             this.backButton.hide();
@@ -85,9 +89,17 @@ class DialogTemplate extends GameObject {
     }
 
     generateDialogSprite(){
-        this.dialogSprite = new Graphics();
-        this.dialogSprite.rect(0, 0, 300, 400);
-        this.dialogSprite.fill('green');
+        if (!this.dialogData || !this.dialogData.sprites || this.dialogData.sprites.length == 0){
+            this.dialogSprite = new Container();
+            let placeholder = new Graphics();
+            placeholder.rect(0, 0, 300, 400);
+            placeholder.fill('green');
+            this.dialogSprite.addChild(placeholder);
+        }
+        else{
+            let image = new Sprite(GetTexture(this.dialogData.sprites[0]));
+            this.dialogSprite.addChild(image);
+        }
         this.dialogContainer.addChild(this.dialogSprite);
     }
 

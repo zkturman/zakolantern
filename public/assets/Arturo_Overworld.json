@@ -1,0 +1,66 @@
+{ "frames": {
+   "Idle0": {
+    "frame": { "x": 0, "y": 0, "w": 65, "h": 65 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 65, "h": 65 },
+    "sourceSize": { "w": 65, "h": 65 },
+    "duration": 100
+   },
+   "Idle1": {
+    "frame": { "x": 65, "y": 0, "w": 65, "h": 65 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 65, "h": 65 },
+    "sourceSize": { "w": 65, "h": 65 },
+    "duration": 100
+   },
+   "Idle2": {
+    "frame": { "x": 0, "y": 65, "w": 65, "h": 65 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 65, "h": 65 },
+    "sourceSize": { "w": 65, "h": 65 },
+    "duration": 100
+   },
+   "Idle3": {
+    "frame": { "x": 65, "y": 65, "w": 65, "h": 65 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 65, "h": 65 },
+    "sourceSize": { "w": 65, "h": 65 },
+    "duration": 100
+   },
+   "Idle4": {
+    "frame": { "x": 0, "y": 65, "w": 65, "h": 65 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 65, "h": 65 },
+    "sourceSize": { "w": 65, "h": 65 },
+    "duration": 100
+   },
+   "Idle5": {
+    "frame": { "x": 65, "y": 0, "w": 65, "h": 65 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 65, "h": 65 },
+    "sourceSize": { "w": 65, "h": 65 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.3.17.2-x64",
+  "image": "Arturo_Overworld.png",
+  "format": "RGBA8888",
+  "size": { "w": 130, "h": 130 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

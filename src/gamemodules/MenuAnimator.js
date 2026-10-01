@@ -36,7 +36,6 @@ class ShakeAnimator extends Animator{
 
         if (this.completedIntervals < this.totalIntervals) { 
             if (Math.abs(this.uiObject.x - this.originalX) > Math.abs(this.moveInterval)){
-                console.log(this.uiObject.width, this.uiObject.x, this.moveInterval, this.totalIntervals, this.duration, deltaTime);
                 this.velocity *= -1;
                 this.completedIntervals++;
             }
@@ -68,12 +67,10 @@ class FadeAnimator extends Animator{
         }
 
         this.velocity = this.sign * this.originalAlpha / (this.duration * 1000);
-        console.log(this.velocity, this.target);
         this.reset();
     }
     
     play(deltaTime){
-        console.log('fade', this.sign, this.uiObject.alpha, this.target);
         this.uiObject.alpha += this.velocity * deltaTime;
         if (this.sign * this.uiObject.alpha - this.target > 0){
             this.finished = true;
@@ -117,7 +114,7 @@ class FloatAnimator extends Animator{
     }
 
     reset(){
-        this.uiObject.y = 400;
+        this.uiObject.y = this.originalY;
         this.finished = false;
     }
 }

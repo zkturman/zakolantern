@@ -12,6 +12,7 @@ import { GameObject } from './gamecore/GameObject.js';
 import { OverworldClubEntrance } from './gamemodules/OverworldClubEntrance.js';
 import { DialogTemplate } from './gamemodules/DialogTemplate.js';
 import { GenerateCode } from './gamemodules/CodeGenerator.js';
+import { LoadSpriteData } from './gamecore/AssetStore.js';
 
 function OutsideClub(){
     const containerRef = useRef(null);
@@ -121,7 +122,10 @@ function OutsideClub(){
                 code: GenerateCode(4),
                 endGameEvent: () => navigate('/2026/invite'),
             };
-
+            await LoadSpriteData('/assets/ClubEntrance_Overworld.png');
+            await LoadSpriteData(BorisBlank.sprites[0]);
+            await LoadSpriteData(BorisHelpful.sprites[0]);
+            await LoadSpriteData(Arturo.sprites[0]);
             let BorisBlankCharacter = new OverworldCharacter(context, BorisBlank, new Vector2D(200, 500));
             context.gameObjects.push(BorisBlankCharacter);
             let ArturoCharacter = new OverworldCharacter(context, Arturo, new Vector2D(40, 300));

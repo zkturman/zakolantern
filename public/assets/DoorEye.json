@@ -158,15 +158,15 @@
    { "name": "Layer 2", "opacity": 255, "blendMode": "normal" }
   ],
   "slices": [
-  ],
-  "animations": {
-    "move": [
-      "EyeMove0", "EyeMove1", "EyeMove2", "EyeMove3", 
-      "EyeMove4", "EyeMove5", "EyeMove6", "EyeMove7", 
-      "EyeMove8", "EyeMove9", "EyeMove10", "EyeMove11", 
-      "EyeMove12", "EyeMove13", "EyeMove14", "EyeMove15", 
-      "EyeMove16", "EyeMove17" 
-    ]
-  }
+  ]
+ },
+ "animations": {
+  "move": [
+    "EyeMove0", "EyeMove1", "EyeMove2", "EyeMove3", 
+    "EyeMove4", "EyeMove5", "EyeMove6", "EyeMove7", 
+    "EyeMove8", "EyeMove9", "EyeMove10", "EyeMove11", 
+    "EyeMove12", "EyeMove13", "EyeMove14", "EyeMove15", 
+    "EyeMove16", "EyeMove17" 
+  ]
  }
 }

@@ -5,7 +5,14 @@ const BorisBlank = {
     ],
     sprites: [
         '/assets/Boris_Dialog.png'
-    ]
+    ],
+    overworld: {
+        sprite: '/assets/Boris_Overworld.png',
+        animations: '/assets/Boris_Overworld.json',
+        default: 'idle',
+        loop: true,
+        speed: 0.8
+    }
 }
 
 const Arturo = {
@@ -26,7 +33,14 @@ const Arturo = {
     ],
     sprites: [
         '/assets/Arturo_Dialog.png'
-    ]
+    ],
+    overworld: {
+        sprite: '/assets/Arturo_Overworld.png',
+        animations: '/assets/Arturo_Overworld.json',
+        default: 'idle',
+        loop: true,
+        speed: 1.0
+    }
 }
 
 const BorisHelpful = {
@@ -41,7 +55,14 @@ const BorisHelpful = {
     ],
     sprites: [
         '/assets/Boris_Dialog.png'
-    ]
+    ],
+    overworld: {
+        sprite: '/assets/Boris_Overworld.png',
+        animations: '/assets/Boris_Overworld.json',
+        default: 'idle',
+        loop: true,
+        speed: 0.8
+    }
 }
 
 export {BorisBlank, BorisHelpful, Arturo}

@@ -1,4 +1,4 @@
-import { Assets } from "pixi.js";
+import { AnimatedSprite, Assets, Spritesheet } from "pixi.js";
 
 const SpriteTextures = {};
 
@@ -10,6 +10,18 @@ async function LoadSpriteData(path) {
     }
 }
 
+async function LoadAnimatedSpriteData(data){
+    if (!SpriteTextures[data.sprite]) {
+        let atlasResponse = await fetch(data.animations);
+        let atlas = await atlasResponse.json();
+        let sprite = await Assets.load(data.sprite);
+        sprite.source.scaleMode = 'nearest';
+        let spritesheet = new Spritesheet(sprite, atlas);
+        await spritesheet.parse();
+        SpriteTextures[data.sprite] = spritesheet;
+    }
+}
+
 function GetTexture(path){
     if (!SpriteTextures[path])
         return null;
@@ -17,4 +29,4 @@ function GetTexture(path){
     return SpriteTextures[path];
 }
 
-export {LoadSpriteData, GetTexture}
+export {LoadSpriteData, LoadAnimatedSpriteData, GetTexture}

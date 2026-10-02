@@ -62,5 +62,11 @@
   ],
   "slices": [
   ]
- }
+ },
+  "animations": {
+  "idle": [
+    "Idle0", "Idle1", "Idle2", "Idle3",
+    "Idle4", "Idle5"
+  ]
+}
 }

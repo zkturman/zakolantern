@@ -12,7 +12,7 @@ import { GameObject } from './gamecore/GameObject.js';
 import { OverworldClubEntrance } from './gamemodules/OverworldClubEntrance.js';
 import { DialogTemplate } from './gamemodules/DialogTemplate.js';
 import { GenerateCode } from './gamemodules/CodeGenerator.js';
-import { LoadSpriteData } from './gamecore/AssetStore.js';
+import { LoadAnimatedSpriteData, LoadSpriteData } from './gamecore/AssetStore.js';
 
 function OutsideClub(){
     const containerRef = useRef(null);
@@ -29,79 +29,6 @@ function OutsideClub(){
     const journalTextureRef = useRef(null);
     const buttonTextureRef = useRef(null);
     const location = useLocation();
-
-    function pageButtonClick(pagesToIncrement){
-        let numberOfPages = JournalEntryData.Entries.length;
-        let nextPage = currentPage + pagesToIncrement;
-        if ((nextPage >= 0) && (nextPage < numberOfPages)){
-            currentPage = nextPage;
-            appRef.current.stage.removeChildren();
-            renderJournalEntry(appRef.current, JournalEntryData.Entries[currentPage]);
-            renderButtons(appRef.current);
-        }
-        let soundIndex = Math.floor(Math.random() * 4);
-        pageSounds[soundIndex].play();
-    }
-
-    function renderJournalEntry(app, entry){
-        const container = new Container();
-        const boxSize = new Graphics();
-        boxSize.rect(0, 0, app.canvas.width * 0.8, app.canvas.height)
-            .fill({color: '#00000000'});
-        container.addChild(boxSize);
-        let width = app.canvas.width * 0.8;
-        const style = new TextStyle({
-            align: 'left',
-            wordWrap: true,
-            wordWrapWidth: width,
-            fontFamily: 'CasualCursive',
-            fontSize: 30,
-        });
-        const journalTile = new TilingSprite({
-            texture: journalTextureRef.current, 
-            width: app.canvas.width,
-            height: app.canvas.height,
-        });
-        app.stage.addChild(journalTile);
-        journalTile.tileScale.set(0.5, 0.5);
-        const dateText = new Text({text: entry.Date, style: style});
-        container.addChild(dateText);
-        const journalText = new Text({text: entry.Text, style: style});
-        journalText.position.set(0, 100);
-        container.addChild(journalText);
-        container.position.set((app.canvas.width / 2) - (container.width / 2), 0);
-        app.stage.addChild(container);
-    }
-
-    function renderButtons(app){
-        if (currentPage != 0){
-            app.stage.addChild(leftButtonRef.current);
-        }
-        if (currentPage != JournalEntryData.Entries.length - 1){
-            app.stage.addChild(rightButtonRef.current);
-        }
-    }
-
-    function generateButtons(app){
-        const buttonDimensions = {
-            height: app.canvas.height / 4, 
-            width: app.canvas.width / 6
-        };
-        let centerHeight = (app.canvas.height / 2) - (buttonDimensions.height / 2);
-        const leftButton = new Sprite(buttonTextureRef.current);
-        leftButton.scale.set(-0.5, 2);
-        leftButton.position.set(leftButton.width, centerHeight);
-        leftButton.eventMode = 'static';
-        leftButton.on('pointerdown', () => pageButtonClick(-1));
-        leftButtonRef.current = leftButton;
-
-        const rightButton = new Sprite(buttonTextureRef.current);
-        rightButton.scale.set(0.5, 2);
-        rightButton.position.set(app.canvas.width - leftButton.width, centerHeight);
-        rightButton.eventMode = 'static';
-        rightButton.on('pointerdown', () => pageButtonClick(1));
-        rightButtonRef.current = rightButton;
-    }
 
     useEffect(() => {
         if (loadingRef.current) return;
@@ -126,6 +53,18 @@ function OutsideClub(){
             await LoadSpriteData(BorisBlank.sprites[0]);
             await LoadSpriteData(BorisHelpful.sprites[0]);
             await LoadSpriteData(Arturo.sprites[0]);
+            await LoadAnimatedSpriteData(Arturo.overworld);
+            await LoadAnimatedSpriteData(BorisBlank.overworld);
+            await LoadAnimatedSpriteData(BorisHelpful.overworld);
+            let backgroundTexture = await Assets.load('/assets/FloorTile.png');
+            let background = new TilingSprite({
+                texture: backgroundTexture,
+                width: backgroundTexture.width,
+                height: app.screen.height
+            });
+            app.stage.addChild(background);
+            background.position.set(app.canvas.width / 2 - backgroundTexture.width / 2, 0);
+
             let BorisBlankCharacter = new OverworldCharacter(context, BorisBlank, new Vector2D(200, 500));
             context.gameObjects.push(BorisBlankCharacter);
             let ArturoCharacter = new OverworldCharacter(context, Arturo, new Vector2D(40, 300));

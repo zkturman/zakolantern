@@ -65,4 +65,24 @@ const BorisHelpful = {
     }
 }
 
-export {BorisBlank, BorisHelpful, Arturo}
+const DoorEye = {
+    overworld: {
+        sprite: '/assets/DoorEye.png',
+        animations: '/assets/DoorEye.json',
+        default: 'move',
+        loop: true,
+        speed: 0.1
+    }
+}
+
+const DanceTile = {
+    overworld: {
+        sprite: '/assets/DanceTile.png',
+        animations: '/assets/DanceTile.json',
+        default: 'fade',
+        loop: false,
+        speed: 0.5
+    }
+}
+
+export {BorisBlank, BorisHelpful, Arturo, DoorEye, DanceTile}

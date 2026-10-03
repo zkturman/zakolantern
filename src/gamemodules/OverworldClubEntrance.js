@@ -5,7 +5,7 @@ import { PasscodeScreen } from "./PasscodeScreen";
 import { GetTexture } from "../gamecore/AssetStore";
 
 class OverworldClubEntrance extends GameObject{
-    constructor(context){
+    constructor(context, hagathaEye, danceTile){
         super(context, new Vector2D(0, 0), new Vector2D(0, 0));
         let texture = GetTexture('/assets/ClubEntrance_Overworld.png');
         let entranceSprite = new Sprite(texture);
@@ -13,7 +13,7 @@ class OverworldClubEntrance extends GameObject{
         entranceSprite.eventMode = 'static';
         this.context.app.stage.addChild(entranceSprite);
 
-        this.passcodeScreen = new PasscodeScreen(context);
+        this.passcodeScreen = new PasscodeScreen(context, hagathaEye, danceTile);
         this.context.gameObjects.push(this.passcodeScreen);
         entranceSprite.on('mousedown', () => {this.openPasscodeScreen()});
         entranceSprite.on('touchstart', () => {this.openPasscodeScreen()});

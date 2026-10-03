@@ -1,39 +1,70 @@
-import { Graphics } from "pixi.js";
+import { AnimatedSprite, Container } from "pixi.js";
 import { CodeValues } from "./CodeGenerator";
+import { GetTexture } from "../gamecore/AssetStore";
 
-function CreateDanceTile(){
-    let danceTile = new Graphics();
-    danceTile.rect(0, 0, 65, 65);
-    danceTile.fill('white');
+function CreateDanceTile(data){
+    let danceTile = new Container();
+    let tile1 = new AnimatedSprite(GetTexture(data.sprite).animations[data.default]);
+    tile1.loop = data.loop;
+    tile1.animationSpeed = data.speed;
+
+    let tile2 = new AnimatedSprite(GetTexture(data.sprite).animations[data.default]); 
+    tile2.loop = data.loop;
+    tile2.animationSpeed = data.speed;
+    tile2.tint = 'red';
+
+    danceTile.addChild(tile2);
+    danceTile.addChild(tile1);
+
     danceTile.colorCode = -1;
     danceTile.eventMode = 'static';
-    danceTile.on('mousedown', () => SwitchColor(danceTile));
-    danceTile.on('touchstart', () => SwitchColor(danceTile));
+    danceTile.ready = true;
+    danceTile.on('mousedown', () => TileClick(danceTile));
+    danceTile.on('touchstart', () => TileClick(danceTile));
     danceTile.GetColorValue = () => GetColorValue(danceTile);
     danceTile.ResetColor = () => {
         danceTile.colorCode = -1;
-        danceTile.tint = 'white';
+        danceTile.removeChildren();
+        danceTile.addChild(tile2);
+        danceTile.addChild(tile1);
+        tile1.tint = 'white';
+        tile2.tint = 'red';
     }
     return danceTile;
 }
 
-function SwitchColor(danceTile){
-    switch(danceTile.colorCode){
-        case -1:
+function TileClick(danceTile){
+    if (danceTile.ready){
+        let primary = danceTile.getChildAt(1);
+        primary.play();
+        danceTile.ready = false;
+        primary.onComplete = () => {
+            let previous = primary;
+            primary = danceTile.getChildAt(1);
+            danceTile.swapChildren(danceTile.getChildAt(0), danceTile.getChildAt(1));
+            previous.gotoAndStop(0);
+            SwitchColor(danceTile.colorCode, previous);
             danceTile.colorCode++;
-            danceTile.tint = 'red';
+            if (danceTile.colorCode > 2) danceTile.colorCode = 0;
+            danceTile.ready = true;
+        }
+    }
+}
+
+function SwitchColor(colorCode, nextSprite){
+
+    switch(colorCode){
+        case -1:
+            nextSprite.tint = 'blue';
             break;
         case 0:
-            danceTile.colorCode++;
-            danceTile.tint = 'blue';
+            nextSprite.tint = 'yellow';
             break;
         case 1:
-            danceTile.colorCode++;
-            danceTile.tint = 'yellow';
+            nextSprite.tint = 'red';
             break;
         case 2:
-            danceTile.colorCode = 0;
-            danceTile.tint = 'red';
+            nextSprite.tint = 'blue';
             break;
     }
 }

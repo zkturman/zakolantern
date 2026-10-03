@@ -1,4 +1,4 @@
-import { AnimatedSprite } from "pixi.js";
+import { AnimatedSprite, Graphics } from "pixi.js";
 import { GameObject } from "../gamecore/GameObject";
 import { Vector2D } from "../gamecore/Vector2D";
 import { GetTexture } from "../gamecore/AssetStore";
@@ -13,10 +13,21 @@ class OverworldCharacter extends GameObject{
         this.postion = new Vector2D(Math.round(position.x), Math.round(position.y));
 
         this.generateOverworldSprite(data.overworld)
-        // this.overworldSprite.rect(0, 0, dimensions.x, dimensions.y);
-        // this.overworldSprite.fill('#FFFFFF');
-        this.overworldSprite.position.set(this.position.x, this.position.y);
+        this.shadow = new Graphics();
+        this.shadow.ellipse(0, 
+            0,
+            this.overworldSprite.width * .2,
+            this.overworldSprite.width * .2);
+        this.shadow.fill({
+            color: 'black',
+            alpha: 0.4
+        });
+        this.context.app.stage.addChild(this.shadow);
         this.context.app.stage.addChild(this.overworldSprite);
+        this.overworldSprite.position.set(this.position.x, this.position.y);
+        this.shadow.position.set(this.overworldSprite.x + this.overworldSprite.width / 2, 
+            this.overworldSprite.y + this.overworldSprite.height);
+
         this.overworldSprite.eventMode = 'static';
         this.overworldSprite.on('mousedown', () => {this.overworldSpriteClick()});
         this.overworldSprite.on('touchstart', () => {this.overworldSpriteClick()});
@@ -49,11 +60,12 @@ class OverworldCharacter extends GameObject{
     }
 
     show(){
+        this.shadow.visible = true;
         this.overworldSprite.visible = true;
     }
 
     hide(){
-        console.log(this);
+        this.shadow.visible = false;
         this.overworldSprite.visible = false;
     }
 

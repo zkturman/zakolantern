@@ -7,7 +7,7 @@ import { JournalSfx, JournalTheme } from './data/assetkeys.js';
 import { Howl } from 'howler';
 import './OutsideClub.css';
 import { Vector2D } from './gamecore/Vector2D.js';
-import { Arturo, BorisBlank, BorisHelpful } from './gamemodules/CharacterData.js';
+import { Arturo, BorisBlank, BorisHelpful, DanceTile, DoorEye } from './gamemodules/CharacterData.js';
 import { GameObject } from './gamecore/GameObject.js';
 import { OverworldClubEntrance } from './gamemodules/OverworldClubEntrance.js';
 import { DialogTemplate } from './gamemodules/DialogTemplate.js';
@@ -56,6 +56,9 @@ function OutsideClub(){
             await LoadAnimatedSpriteData(Arturo.overworld);
             await LoadAnimatedSpriteData(BorisBlank.overworld);
             await LoadAnimatedSpriteData(BorisHelpful.overworld);
+            await LoadAnimatedSpriteData(DoorEye.overworld);
+            await LoadAnimatedSpriteData(DanceTile.overworld);
+
             let backgroundTexture = await Assets.load('/assets/FloorTile.png');
             let background = new TilingSprite({
                 texture: backgroundTexture,
@@ -84,21 +87,16 @@ function OutsideClub(){
                 GameObject.destroy(BorisBlankCharacter);
             }
 
-            let clubEntrance = new OverworldClubEntrance(context);
+            let clubEntrance = new OverworldClubEntrance(context, DoorEye.overworld, DanceTile.overworld);
             context.gameObjects.push(clubEntrance);
             context.dialog = new DialogTemplate(context);
             context.gameObjects.push(context.dialog);
 
-            // journalTextureRef.current = await Assets.load("/assets/JournalTexture.png");
-            // buttonTextureRef.current = await Assets.load("/assets/JournalButton.png");
             // Assets.addBundle('fonts', [{
             //     alias: 'CasualCursive',
             //     src: "/assets/CasualCursive.ttf"
             // }]);
             // await Assets.loadBundle('fonts');
-            // generateButtons(app);
-            // renderJournalEntry(app, JournalEntryData.Entries[currentPage]);
-            // renderButtons(app);
             app.ticker.add((time) => {
                 for (let i = 0; i < context.gameObjects.length; i++){
                     if (!context.gameObjects[i].isDestroyed && context.gameObjects[i].isEnabled){

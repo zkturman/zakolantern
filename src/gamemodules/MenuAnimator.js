@@ -114,7 +114,7 @@ class FloatAnimator extends Animator{
     }
 
     reset(){
-        this.uiObject.y = this.originalY;
+        this.uiObject.y = 400;
         this.finished = false;
     }
 }

@@ -62,29 +62,29 @@ class DialogTemplate extends GameObject {
 
         this.generateDialogBackground();
         this.generateDialogSprite();
+        this.dialogContainer.addChild(this.dialogSprite);
         this.generateDialogBox()
         this.generateDialogButton();
         this.generateBackButton();
 
-        this.dialogSprite.position.set((this.dialogContainer.width / 2) - (this.dialogSprite.width / 2),
-            50);
-        this.dialogBox.position.set((this.dialogContainer.width / 2) - this.dialogBox.width / 2,
-            this.dialogSprite.y + this.dialogSprite.height);
-        this.dialogButton.setPosition((this.dialogContainer.width / 2) - this.dialogButton.width / 2,
-            this.dialogBox.y + this.dialogBox.height);
         this.backButton.setPosition((this.dialogContainer.width / 2) - this.backButton.width / 2,
-            this.context.app.canvas.height - this.backButton.height - 20);
+            this.context.app.canvas.height - this.backButton.height + (this.dialogContainer.height - this.context.app.canvas.height) / 2);
+        this.dialogButton.setPosition((this.dialogContainer.width / 2) - this.dialogButton.width / 2,
+            this.backButton.y - this.dialogButton.height);
+        this.dialogBox.position.set((this.dialogContainer.width / 2) - this.dialogBox.width / 2,
+            this.dialogButton.y - this.dialogBox.height);
+        this.dialogSprite.position.set((this.dialogContainer.width / 2) - (this.dialogSprite.width / 2),
+            this.dialogBox.y - this.dialogSprite.height + 50);
+        this.dialogContainer.position.set(this.context.app.canvas.width / 2 - this.dialogContainer.width / 2,
+            this.context.app.canvas.height / 2 - this.dialogContainer.height / 2);
         this.dialogContainer.visible = false;
 
-        this.floatAnimator = new FloatAnimator(this.dialogSprite, .5);
+        this.floatAnimator = new FloatAnimator(this.dialogSprite, 1);
         this.fadeAnimator = new FadeAnimator(this.dialogSprite, 1);
-        console.log(this.dialogSprite.getGlobalPosition());
     }
 
     generateDialogBackground(){
-        let background = new Graphics();
-        background.rect(0, 0, this.context.app.canvas.width, this.context.app.canvas.height);
-        background.fill('black');
+        let background = new Sprite(GetTexture('/assets/Dialog_Background.png'));
         this.dialogContainer.addChild(background);
     }
 
@@ -100,17 +100,16 @@ class DialogTemplate extends GameObject {
             let image = new Sprite(GetTexture(this.dialogData.sprites[0]));
             this.dialogSprite.addChild(image);
         }
-        this.dialogContainer.addChild(this.dialogSprite);
     }
 
     generateDialogBox(){
         this.dialogBox = new Container();
         let dialogOutline = new Graphics();
         dialogOutline.setStrokeStyle({
-            width: 2,
+            width: 1,
             color: 0x000000
         });
-        dialogOutline.rect(0, 0, 250, 150);
+        dialogOutline.rect(0, 0, this.context.app.canvas.width - 20, 120);
         dialogOutline.stroke();
         dialogOutline.fill('white');
         this.dialogBox.addChild(dialogOutline);

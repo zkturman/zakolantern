@@ -162,11 +162,23 @@
  },
  "animations": {
   "move": [
-    "EyeMove0", "EyeMove1", "EyeMove2", "EyeMove3", 
-    "EyeMove4", "EyeMove5", "EyeMove6", "EyeMove7", 
-    "EyeMove8", "EyeMove9", "EyeMove10", "EyeMove11", 
-    "EyeMove12", "EyeMove13", "EyeMove14", "EyeMove15", 
-    "EyeMove16", "EyeMove17" 
+    "EyeMove0", "EyeMove0", "EyeMove0", "EyeMove0", 
+    "EyeMove0", "EyeMove0", "EyeMove0", "EyeMove0", 
+    "EyeMove0", "EyeMove0", "EyeMove1", "EyeMove2", 
+    "EyeMove3", "EyeMove3", "EyeMove3", "EyeMove3", 
+    "EyeMove3", "EyeMove3", "EyeMove3", "EyeMove3", 
+    "EyeMove3", "EyeMove3", "EyeMove4", "EyeMove5", 
+    "EyeMove6", "EyeMove7", "EyeMove8", "EyeMove9", 
+    "EyeMove9", "EyeMove9", "EyeMove9", "EyeMove9", 
+    "EyeMove9", "EyeMove9", "EyeMove9", "EyeMove9", 
+    "EyeMove9", "EyeMove10", "EyeMove11"
+  ],
+  "focus": [ 
+    "EyeMove12", "EyeMove13", "EyeMove14"
+  ], 
+  "relax": [
+    "EyeMove14", "EyeMove15", "EyeMove16", "EyeMove17",
+    "EyeMove12" 
   ]
  }
 }

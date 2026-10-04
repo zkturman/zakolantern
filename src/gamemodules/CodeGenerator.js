@@ -1,4 +1,4 @@
-const values = ["red", "blue", "yellow"];
+const values = ["pink", "blue", "yellow"];
 
 function GenerateCode(length){
     let code = [];
@@ -31,4 +31,4 @@ function CodesMatch(source, other){
     return true;
 }
 
-export {GenerateCode, values as CodeValues}
+export {GenerateCode, values as CodeValues, CodesMatch}

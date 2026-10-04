@@ -1,33 +1,27 @@
-import {Application, Graphics, Container, Text, TextStyle, Assets, TilingSprite, Sprite} from 'pixi.js'
+import {Application, Assets, TilingSprite} from 'pixi.js'
 import { useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { OverworldCharacter } from './gamemodules/OverworldCharacter.js';
-import { JournalEntryData } from './data/database.js';
 import { JournalSfx, JournalTheme } from './data/assetkeys.js';
 import { Howl } from 'howler';
 import './OutsideClub.css';
 import { Vector2D } from './gamecore/Vector2D.js';
-import { Arturo, BorisBlank, BorisHelpful, DanceTile, DoorEye } from './gamemodules/CharacterData.js';
+import { Arturo, BorisBlank, BorisHelpful, DanceTile, DoorEye, HagathaDance } from './gamemodules/CharacterData.js';
 import { GameObject } from './gamecore/GameObject.js';
 import { OverworldClubEntrance } from './gamemodules/OverworldClubEntrance.js';
 import { DialogTemplate } from './gamemodules/DialogTemplate.js';
-import { GenerateCode } from './gamemodules/CodeGenerator.js';
 import { LoadAnimatedSpriteData, LoadSpriteData } from './gamecore/AssetStore.js';
 
 function OutsideClub(){
+    const navigate = useNavigate();
     const containerRef = useRef(null);
     const appRef = useRef(null);
     const loadingRef = useRef(false);
-    const leftButtonRef = useRef(null);
-    const rightButtonRef = useRef(null);
-    let currentPage = 0;
     const pageSounds = JournalSfx.map(asset => new Howl({
         src: [asset],
         volumen: 1.0
     }));
     const themeMusicRef = useRef(null);
-    const journalTextureRef = useRef(null);
-    const buttonTextureRef = useRef(null);
     const location = useLocation();
 
     useEffect(() => {
@@ -46,10 +40,19 @@ function OutsideClub(){
                 colliders: [],
                 collisions: new Map(),
                 controllerKey: 'keyboard',
-                code: GenerateCode(4),
+                code: ["yellow", "pink", "yellow", "blue"],
                 endGameEvent: () => navigate('/2026/invite'),
             };
-            await LoadSpriteData('/assets/ClubEntrance_Overworld.png');
+
+            let clubOverworld = {
+                sprite: '/assets/ClubEntrance_Overworld.png',
+                animations: '/assets/ClubEntrance_Overworld.json',
+                speed: 0.07,
+                loop: true,
+                default: 'pulse'
+            }
+            await LoadAnimatedSpriteData(clubOverworld);
+            await LoadSpriteData('/assets/Dialog_Background.png');
             await LoadSpriteData(BorisBlank.sprites[0]);
             await LoadSpriteData(BorisHelpful.sprites[0]);
             await LoadSpriteData(Arturo.sprites[0]);
@@ -58,6 +61,7 @@ function OutsideClub(){
             await LoadAnimatedSpriteData(BorisHelpful.overworld);
             await LoadAnimatedSpriteData(DoorEye.overworld);
             await LoadAnimatedSpriteData(DanceTile.overworld);
+            await LoadAnimatedSpriteData(HagathaDance.overworld);
 
             let backgroundTexture = await Assets.load('/assets/FloorTile.png');
             let background = new TilingSprite({
@@ -87,7 +91,7 @@ function OutsideClub(){
                 GameObject.destroy(BorisBlankCharacter);
             }
 
-            let clubEntrance = new OverworldClubEntrance(context, DoorEye.overworld, DanceTile.overworld);
+            let clubEntrance = new OverworldClubEntrance(context, clubOverworld, DoorEye.overworld, DanceTile.overworld, HagathaDance.overworld);
             context.gameObjects.push(clubEntrance);
             context.dialog = new DialogTemplate(context);
             context.gameObjects.push(context.dialog);

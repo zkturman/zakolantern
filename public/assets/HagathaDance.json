@@ -38,6 +38,7 @@
  "animations": {
   "left": ["Dance0"],
   "right": ["Dance1"],
-  "up": ["Dance2"]
+  "up": ["Dance2"],
+  "dance": ["Dance1", "Dance2", "Dance1", "Dance0"]
  }
 }

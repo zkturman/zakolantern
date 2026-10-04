@@ -85,4 +85,14 @@ const DanceTile = {
     }
 }
 
-export {BorisBlank, BorisHelpful, Arturo, DoorEye, DanceTile}
+const HagathaDance = {
+       overworld: {
+        sprite: '/assets/HagathaDance.png',
+        animations: '/assets/HagathaDance.json',
+        default: 'dance',
+        loop: true,
+        speed: 0.05
+    } 
+}
+
+export {BorisBlank, BorisHelpful, Arturo, DoorEye, DanceTile, HagathaDance}

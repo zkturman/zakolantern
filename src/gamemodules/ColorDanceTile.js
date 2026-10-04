@@ -11,7 +11,7 @@ function CreateDanceTile(data){
     let tile2 = new AnimatedSprite(GetTexture(data.sprite).animations[data.default]); 
     tile2.loop = data.loop;
     tile2.animationSpeed = data.speed;
-    tile2.tint = 'red';
+    tile2.tint = 'magenta';
 
     danceTile.addChild(tile2);
     danceTile.addChild(tile1);
@@ -19,6 +19,7 @@ function CreateDanceTile(data){
     danceTile.colorCode = -1;
     danceTile.eventMode = 'static';
     danceTile.ready = true;
+    danceTile.event = () => {};
     danceTile.on('mousedown', () => TileClick(danceTile));
     danceTile.on('touchstart', () => TileClick(danceTile));
     danceTile.GetColorValue = () => GetColorValue(danceTile);
@@ -28,7 +29,7 @@ function CreateDanceTile(data){
         danceTile.addChild(tile2);
         danceTile.addChild(tile1);
         tile1.tint = 'white';
-        tile2.tint = 'red';
+        tile2.tint = 'magenta';
     }
     return danceTile;
 }
@@ -49,22 +50,25 @@ function TileClick(danceTile){
             danceTile.ready = true;
         }
     }
+    if (danceTile.event){
+        danceTile.event();
+    }
 }
 
 function SwitchColor(colorCode, nextSprite){
 
     switch(colorCode){
         case -1:
-            nextSprite.tint = 'blue';
+            nextSprite.tint = 'cyan';
             break;
         case 0:
             nextSprite.tint = 'yellow';
             break;
         case 1:
-            nextSprite.tint = 'red';
+            nextSprite.tint = 'magenta';
             break;
         case 2:
-            nextSprite.tint = 'blue';
+            nextSprite.tint = 'cyan';
             break;
     }
 }

@@ -11,6 +11,7 @@ import { GameObject } from './gamecore/GameObject.js';
 import { OverworldClubEntrance } from './gamemodules/OverworldClubEntrance.js';
 import { DialogTemplate } from './gamemodules/DialogTemplate.js';
 import { LoadAnimatedSpriteData, LoadSpriteData } from './gamecore/AssetStore.js';
+import { IntroScreen } from './gamemodules/IntroScreen.js';
 
 function OutsideClub(){
     const navigate = useNavigate();
@@ -51,6 +52,9 @@ function OutsideClub(){
                 loop: true,
                 default: 'pulse'
             }
+            await Assets.load({alias: 'Bombard', src: '/assets/BOMBARD_.otf', data:{ family: 'Bombard'}});
+            await Assets.load({alias: 'Chunky Heart', src: '/assets/CHUNKY HEART SOLID.otf', data:{ family: 'Chunky Heart'}});
+            await Assets.load({alias: 'Crystal Radio Kit', src: '/assets/Crystal Radio Kit.otf', data:{ family: 'Crystal Radio Kit'}});
             await LoadAnimatedSpriteData(clubOverworld);
             await LoadSpriteData('/assets/Dialog_Background.png');
             await LoadSpriteData(BorisBlank.sprites[0]);
@@ -95,6 +99,9 @@ function OutsideClub(){
             context.gameObjects.push(clubEntrance);
             context.dialog = new DialogTemplate(context);
             context.gameObjects.push(context.dialog);
+
+            let introScreen = new IntroScreen(context);
+            context.gameObjects.push(introScreen);
 
             // Assets.addBundle('fonts', [{
             //     alias: 'CasualCursive',

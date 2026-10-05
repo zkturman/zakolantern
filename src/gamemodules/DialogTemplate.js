@@ -4,24 +4,15 @@ import { Container, Graphics, TextStyle, Text, styleAttributes, Sprite } from "p
 import { MenuButton } from "./MenuButton";
 import { FadeAnimator, FloatAnimator } from "./MenuAnimator";
 import { GetTexture } from "../gamecore/AssetStore";
+import { BaseParagraphStyle, BaseTitleStyle } from "./TextStyling";
 
-const dialogStyle = new TextStyle({
-    fontFamily: 'Arial',
-    fontSize: 18,
-    fill: 'black',
-    wordWrap: true,
-    wordWrapWidth: 250,
-    lineHeight: 40,
-    align: 'left'
-});
+const dialogStyle = BaseParagraphStyle();
+dialogStyle.fontSize = 20;
+dialogStyle.fill = 'white';
 
-const labelStyle = new TextStyle({
-    fontFamily: 'Arial',
-    fontSize: 16,
-    fill: 'white',
-    wordWrap: true,
-    align: 'center'
-});
+const labelStyle = BaseTitleStyle();
+labelStyle.fontSize = 20;
+labelStyle.fill = 'black';
 
 class DialogTemplate extends GameObject {
     closedEvent = null;
@@ -29,6 +20,7 @@ class DialogTemplate extends GameObject {
     
     constructor(context, dialogData) {
         super(context, new Vector2D(0, 0), new Vector2D(0, 0));
+        this.buttonColor = Math.floor(Math.random() * 3);
         this.generateDialogScene();
     }
 
@@ -106,18 +98,27 @@ class DialogTemplate extends GameObject {
         this.dialogBox = new Container();
         let dialogOutline = new Graphics();
         dialogOutline.setStrokeStyle({
-            width: 1,
-            color: 0x000000
+            width: 2,
+            color: 'white'
         });
         dialogOutline.rect(0, 0, this.context.app.canvas.width - 20, 120);
+        dialogOutline.fill({
+            color: 'black',
+            alpha: 0.7
+        });
         dialogOutline.stroke();
-        dialogOutline.fill('white');
         this.dialogBox.addChild(dialogOutline);
 
         let nameLabel = new Container();
         let nameLabelBackground = new Graphics();
-        nameLabelBackground.rect(0, 0, 60, 30);
-        nameLabelBackground.fill('black');
+        nameLabelBackground.poly([
+            {x: 0, y: 0}, 
+            {x: 70, y: 0},
+            {x: 70, y: 25},
+            {x: 65, y: 30},
+            {x: 0, y: 30}
+        ]);
+        nameLabelBackground.fill('white');
         nameLabel.addChild(nameLabelBackground);
         
         this.nameText = new Text({
@@ -128,31 +129,33 @@ class DialogTemplate extends GameObject {
         this.nameText.anchor.set(0.5, 0.5);
         this.nameText.position.set(nameLabelBackground.width / 2, nameLabelBackground.height / 2);
 
+        dialogStyle.wordWrapWidth = dialogOutline.width * 0.9;
         this.dialogText = new Text({
             text: "",
             style: dialogStyle
         });
         this.dialogBox.addChild(this.dialogText);
         this.dialogText.y = 30;
+        this.dialogText.x = (dialogOutline.width - dialogOutline.width * 0.9) / 2;
 
         this.dialogBox.addChild(nameLabel);
         this.dialogContainer.addChild(this.dialogBox);
     }
 
     generateDialogButton(){
-        this.dialogButton = new MenuButton(this.dialogContainer, 'Continue');
+        this.dialogButton = new MenuButton(this.dialogContainer, 'Continue', this.buttonColor);
         this.dialogButton.setMouseDown(() => this.dialogButtonClick());
         this.dialogButton.setTouchStart(() => this.dialogButtonClick());
     }
 
     generateBackButton(){
-        this.backButton = new MenuButton(this.dialogContainer, 'Back');
+        let color = this.buttonColor == 2 ? 0 : this.buttonColor + 1;
+        this.backButton = new MenuButton(this.dialogContainer, 'Back', color);
         this.backButton.setMouseDown(() => this.backButtonClick());
         this.backButton.setTouchStart(() => this.backButtonClick());
     }
 
     dialogButtonClick(event){
-        console.log('dialog button clicked');
         this.currentLine++;
 
         if (this.currentLine >= this.dialogData.dialog.length){

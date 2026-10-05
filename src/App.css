@@ -20,3 +20,20 @@ body{
   flex-grow: 1;
   overflow: scroll;
 }
+
+@font-face {
+  font-family: "Crystal Radio Kit";
+  src:
+    url("/assets/Crystal Radio Kit.otf")
+}
+
+@font-face {
+  font-family: "Chunky Heart";
+  src:
+    url("/assets/CHUNKY HEART SOLID.otf")
+}
+
+@font-face {
+  font-family: "Bombard";
+  src: url("/assets/BOMBARD_.otf")
+}

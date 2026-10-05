@@ -56,6 +56,7 @@ class PasscodeScreen extends GameObject{
         }
         this.shakeAnimator = null;
 
+        this.buttonColor = Math.floor(Math.random() * 3);
         this.generateSubmitButton();
         this.generateBackButton();
 
@@ -97,7 +98,7 @@ class PasscodeScreen extends GameObject{
     }
 
     generateSubmitButton(){
-        this.submitButton = new MenuButton(this.passcodeContainer, 'Dance!');
+        this.submitButton = new MenuButton(this.passcodeContainer, 'Dance!', this.buttonColor);
         this.submitButton.setMouseDown(() => this.submitButtonClick());
         this.submitButton.setTouchStart(() => this.submitButtonClick());
     }
@@ -164,7 +165,7 @@ class PasscodeScreen extends GameObject{
         for (let i = 0; i < this.danceTileCollections.length; i++){
             currentCode.push(this.danceTileCollections[i].GetColorValue());
         }
-        console.log(currentCode, this.context.code);
+
         if (CodesMatch(this.context.code, currentCode)){
             this.playHagathaDance(true)
         }
@@ -177,7 +178,8 @@ class PasscodeScreen extends GameObject{
     }
 
     generateBackButton(){
-        this.backButton = new MenuButton(this.passcodeContainer, 'Back');
+        let color = this.buttonColor == 2 ? 0 : this.buttonColor + 1;
+        this.backButton = new MenuButton(this.passcodeContainer, 'Back', color);
         this.backButton.setMouseDown(() => this.hide());
         this.backButton.setTouchStart(() => this.hide());
     }

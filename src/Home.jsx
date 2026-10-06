@@ -1,10 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
 import { Howler, Howl } from 'howler';
 import './Home.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
 function Home(){
+    const navigate = useNavigate();
+    function launchGame(){
+        document.body.requestFullscreen();
+        navigate('/game');
+    }
     return (
         <>
             <div id="homeContainer">
@@ -19,9 +24,9 @@ function Home(){
                         Club Mysterio
                     </p>
                 </div>
-                <NavLink to="/game">
+                <button onClick={() => launchGame()}>
                     <span id="playButton">Play</span>
-                </NavLink> 
+                </button> 
             </div>
         </>
     );

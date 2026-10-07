@@ -1,0 +1,51 @@
+{ "frames": {
+   "Flash0": {
+    "frame": { "x": 0, "y": 0, "w": 420, "h": 265 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 420, "h": 265 },
+    "sourceSize": { "w": 420, "h": 265 },
+    "duration": 100
+   },
+   "Flash1": {
+    "frame": { "x": 420, "y": 0, "w": 420, "h": 265 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 420, "h": 265 },
+    "sourceSize": { "w": 420, "h": 265 },
+    "duration": 100
+   },
+   "Flash2": {
+    "frame": { "x": 0, "y": 265, "w": 420, "h": 265 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 420, "h": 265 },
+    "sourceSize": { "w": 420, "h": 265 },
+    "duration": 100
+   },
+   "Flash3": {
+    "frame": { "x": 420, "y": 265, "w": 420, "h": 265 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 420, "h": 265 },
+    "sourceSize": { "w": 420, "h": 265 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.3.17.2-x64",
+  "image": "Dance_Background.png",
+  "format": "RGBA8888",
+  "size": { "w": 840, "h": 530 },
+  "scale": "1",
+  "layers": [
+   { "name": "Layer 3", "opacity": 255, "blendMode": "normal" }
+  ]
+ },
+ "animations":{
+  "flash":[
+    "Flash0", "Flash1", "Flash2", "Flash3" 
+  ]
+ }
+}

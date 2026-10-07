@@ -77,6 +77,7 @@ class DialogTemplate extends GameObject {
 
     generateDialogBackground(){
         let background = new Sprite(GetTexture('/assets/Dialog_Background.png'));
+        background.eventMode = 'static'; 
         this.dialogContainer.addChild(background);
     }
 

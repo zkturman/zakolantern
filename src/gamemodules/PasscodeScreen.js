@@ -41,6 +41,7 @@ class PasscodeScreen extends GameObject{
         let background = new Graphics();
         background.rect(0, 0, this.context.app.canvas.width, this.context.app.canvas.height);
         background.fill(backgroundGradient);
+        background.eventMode = 'static';
         this.passcodeContainer.addChild(background);
         this.passcodeContainer.addChild(danceFloor);
 

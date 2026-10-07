@@ -5,46 +5,90 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    background-image: url("/assets/InviteBackground.png");
+    background-image: linear-gradient(rgb(89, 155, 155), black 40%);
     background-size: cover;
     background-position: center;
     z-index: -1;
 }
 
-.invite-details{
-    margin: 5px;
-}
-
 .details-body p{
     text-align: left;
-    font-size: larger;
+    font-size: large;
     font-weight: bold;
-    margin: 0px;
+    margin: 10px 10px;
+    font-family: 'Bombard';
+}
+
+.invite-details>div {
+    animation: 1s ease-out slide-in;
 }
 
 .invite-details h2 {
-    background-image: linear-gradient(#392121, #0c0b0b);
+    margin: 0px;
+    padding: 15px 10px;
+    background-image: linear-gradient(#222139, #0b0b0c);
     border-radius: 4px;
+    font-family: 'Crystal Radio Kit';
+    text-align: left;
+    clip-path: polygon(0 10px, 10px 0px, 100% 0px, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+}
+
+.invite-details>div:nth-child(3n + 2){
+    animation-duration: 1.5s;
+}
+
+.invite-details>div:nth-child(3n + 3){
+    animation-duration: 2s;
+}
+
+.invite-details>div:nth-child(3n + 1) h2{
+    box-shadow: 0px -2px 2px 2px inset magenta;
+    color: magenta;
+}
+
+.invite-details>div:nth-child(3n + 2) h2{
+    box-shadow: 0px -2px 2px 2px inset yellow;
+    color: yellow;
+}
+
+.invite-details>div:nth-child(3n + 3) h2{
+    box-shadow: 0px -2px 2px 2px inset cyan;
+    color: cyan;
+}
+
+.invite-timeline p, .invite-timeline li{
+    text-align: center;
 }
 
 .details-body ul{
     margin-top: 0px;
+    padding-left: 0px;
 }
 
 .details-body li{
-    text-align: left;
-    font-size: large;
+    font-size: 14px;
     font-weight: bold;
+    list-style-type: none;
 }
 
 .details-body{
     margin: 0px;
 }
 
+.screening-title{
+    margin-bottom: 5px !important;
+}
+
 .screening-note{
     font-size: large !important;
     font-weight: bold;
-    margin-left: 20px !important;
+    margin-top: 5px !important;
+    margin-bottom: 0 !important;
+}
+
+hr {
+    width: 80%;
+    border-top: 3px double; 
 }
 
 strong{
@@ -53,4 +97,13 @@ strong{
 
 .story-body{
     text-indent: 1em;
+}
+
+@keyframes slide-in{
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
 }

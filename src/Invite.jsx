@@ -3,27 +3,31 @@ import './Invite.css';
 function Invite(){
     const partyDetails = [
         {
-            header: "The Watcher Appears",
+            header: "The Haunting at Club Mysterio",
             body: [
                 <p className='body-text-color story-body'>
-                    The chimes ring out, echoing in the chapel. A growing sound that
-                    can only be described as the shadows <em>themselves</em>. A body, 
-                    made of shadows emerges from behind the chimes. It's eyes glowing in 
-                    the darkness. It's the Watcher.
+                    This year's theme is <strong>Monster Nightclub</strong>! Become a 
+                    monster for the night as you return to Club Mysterio. You're first 
+                    time at Club Mysterio was so fun you don't even remember it. If you had a blast 
+                    getting to hang with Arturo and Boris, there's even more in store next time.
                 </p>,
                 <p className='body-text-color story-body'>
-                    And he is hungry. Join rest of the 60s 
-                    research team at the Devil's Tongue Settlement in Fury Gorge. 
-                    It's up to you to seal the demon that your team has 
-                    accidentally unleashed! The adventures continues during this year's 
-                    annual Halloween party.
+                    Since you're last visit, the club has been infested with an evil spirit. 
+                    The witch Hagatha has asked you and your friends to help rid the club of 
+                    its presence. 'It's no good for business, you see' was the only reason she 
+                    gave. But why couldn't she ask someone (or anyone) else?
+                </p>,
+                <p className='body-text-color story-body'>
+                    No matter. No one turns down a demand from Hagatha.  
+                    Release your inner monster to squash evil with your best ghoul friends. 
+                    Hey, if you survive, maybe it'll actualy be fun.
                 </p>
             ]
         },
         {
             header: "Details",
             body: [
-                <p className='body-text-color'><strong>When: </strong>1 November 2025'</p>,
+                <p className='body-text-color'><strong>When: </strong>31 October 2026 at 18:15</p>,
                 <p className='body-text-color'><strong>Where: </strong>1 Hanbury</p>,
                 <p className='body-text-color'><strong>What to wear? </strong> Fancy dress</p>,
                 <p className='body-text-color'><strong>What to bring? </strong> Yourself!</p>,
@@ -32,20 +36,19 @@ function Invite(){
         {
             header: 'Timeline',
             body: [
-                <div>
-                <p className='body-text-color'><strong>18:15</strong> - Party Start</p>
-                <p className='body-text-color'><strong>18:30</strong> - Screening 1: Unleashed Classic</p>
-                <p className='body-text-color screening-note'>The following activities will be occur alongside the film:</p>
-                <ul>
-                    <li className='body-text-color'>Cocktails and snacks</li>
-                    <li className='body-text-color'>Games</li>
-                    <li className='body-text-color'>Light dinner</li>
-                </ul>
-                <p className='body-text-color'><strong>20:00</strong> - Screening 2: From the Shadows</p>
-                <p className='body-text-color screening-note'>The following activities will be occur alongside the film:</p>
+                <div className='invite-timeline'>
+                    <p className='body-text-color screening-title'>Screening 1: Monster Madness</p>
+                    <p className='body-text-color screening-note'>During the film:</p>
                     <ul>
-                        <li className='body-text-color'>Cocktails</li>
-                        <li className='body-text-color'>Dessert</li>
+                        <li className='body-text-color'>- Games- </li>
+                        <li className='body-text-color'>- Fish-n-Chips -</li>
+                    </ul>
+                    <hr />
+                    <p className='body-text-color screening-title'>Screening 2: The Beast Within</p>
+                    <p className='body-text-color screening-note'>During the film:</p>
+                    <ul>
+                        <li className='body-text-color'>- Cocktails -</li>
+                        <li className='body-text-color'>- Dessert -</li>
                     </ul>
                 </div>
             ]
@@ -59,7 +62,7 @@ function Invite(){
             <div className='invite-details'>
                 {partyDetails.map((item, index) => (
                     <div key={`${item}-${index}`}>
-                        <h2 className='body-text-color'>{item.header}</h2>
+                        <h2>{item.header}</h2>
                         {item.body.map((detail, index) => (
                             <div key={`${detail}-${index}`} 
                             className='details-body'>

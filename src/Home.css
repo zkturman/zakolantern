@@ -1,4 +1,59 @@
-.scenario-container {
+#homeContainer {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-image: url('/assets/Home_Background.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-clip: border-box;
+    filter: grayscale(0.2);
+}
+
+#homeContainer p {
+    /* color: white; */
+    margin: 0;
+    font-family: 'Crystal Radio Kit';
+    animation: color-shift 15s ease 0s infinite;
+    box-shadow: none!important; 
+}
+
+.title-small{
+    font-size: 16px;
+    margin: 16px 0 !important;
+}
+
+.title-large{
+    line-height: 32px;
+    font-size: 48px;
+}
+
+.title-largest{
+    line-height: 48px;
+    font-size: 64px;
+}
+
+#playButton {
+    display: block;
+    padding: 0px;
+    height: 75px;
+    width: 250px;
+    color: white;
+    background-image: linear-gradient(rgb(89, 155, 155), black 20%);
+    border-width: 0 4px 4px 0;
+    border-color: white;
+    box-shadow: 0px -2px 2px 2px inset white;
+    justify-items: center;
+    align-content: center;
+    font-family: 'Chunky Heart';
+    font-size: 24px;
+    clip-path: polygon(0 0, 230px 0, 250px 20px, 250px 75px, 20px 75px, 0 55px);
+    animation: color-shift 15s ease 0s infinite;
+}
+
+.scenario {
     padding: 20px;
     display: flex;
     height: 100%;
@@ -12,6 +67,29 @@
 @keyframes fade-in{
     from {opacity: 0;}
     to {opacity: 1;}
+}
+
+@keyframes color-shift{
+    0% {
+        color: white;
+        border-color: white;
+        box-shadow: 0px -2px 2px 2px inset white;
+    }
+    25% {
+        color: magenta;
+        border-color: magenta;
+        box-shadow: 0px -2px 2px 2px inset magenta;
+    }
+    50% {
+        color: yellow;
+        border-color: yellow;
+        box-shadow: 0px -2px 2px 2px inset yellow;
+    }
+    75% {
+        color: cyan;
+        border-color: cyan;
+        box-shadow: 0px -2px 2px 2px inset cyan;
+    }
 }
 
 .story-note {

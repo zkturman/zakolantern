@@ -1,4 +1,4 @@
-import {Application, Assets, TilingSprite} from 'pixi.js'
+import {Application, Assets, Cache, TilingSprite} from 'pixi.js'
 import { useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { OverworldCharacter } from './gamemodules/OverworldCharacter.js';
@@ -25,6 +25,7 @@ function OutsideClub(){
             loadingRef.current = true;
             const app = new Application();
             await app.init({backgroundColor: 'black', resizeTo: containerRef.current});
+            Cache.reset();
             Howler.stop();
             containerRef.current.appendChild(app.canvas);
             

@@ -14,6 +14,7 @@ import { IntroScreen } from './gamemodules/IntroScreen.js';
 
 function OutsideClub(){
     const navigate = useNavigate();
+    const location = useLocation();
     const containerRef = useRef(null);
     const appRef = useRef(null);
     const loadingRef = useRef(false);
@@ -129,7 +130,7 @@ function OutsideClub(){
                 appRef.current = null;
             }
         };
-    }, []);
+    }, [location.pathname]);
 
     return(
         <>

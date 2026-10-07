@@ -52,11 +52,21 @@ function OutsideClub(){
                 loop: true,
                 default: 'pulse'
             }
+
+            let danceBackground = {
+                sprite: '/assets/Dance_Background.png',
+                animations: '/assets/Dance_Background.json',
+                speed: 0.2,
+                loop: true,
+                default: 'flash'
+            }
             await Assets.load({alias: 'Bombard', src: '/assets/BOMBARD_.otf', data:{ family: 'Bombard'}});
             await Assets.load({alias: 'Chunky Heart', src: '/assets/CHUNKY HEART SOLID.otf', data:{ family: 'Chunky Heart'}});
             await Assets.load({alias: 'Crystal Radio Kit', src: '/assets/Crystal Radio Kit.otf', data:{ family: 'Crystal Radio Kit'}});
             await LoadAnimatedSpriteData(clubOverworld);
+            await LoadAnimatedSpriteData(danceBackground);
             await LoadSpriteData('/assets/Dialog_Background.png');
+            await LoadSpriteData('/assets/Dance_Floor.png');
             await LoadSpriteData(BorisBlank.sprites[0]);
             await LoadSpriteData(BorisHelpful.sprites[0]);
             await LoadSpriteData(Arturo.sprites[0]);
@@ -95,13 +105,13 @@ function OutsideClub(){
                 GameObject.destroy(BorisBlankCharacter);
             }
 
-            let clubEntrance = new OverworldClubEntrance(context, clubOverworld, DoorEye.overworld, DanceTile.overworld, HagathaDance.overworld);
+            let clubEntrance = new OverworldClubEntrance(context, clubOverworld, DoorEye.overworld, DanceTile.overworld, HagathaDance.overworld, danceBackground);
             context.gameObjects.push(clubEntrance);
             context.dialog = new DialogTemplate(context);
             context.gameObjects.push(context.dialog);
 
-            let introScreen = new IntroScreen(context);
-            context.gameObjects.push(introScreen);
+            // let introScreen = new IntroScreen(context);
+            // context.gameObjects.push(introScreen);
 
             // Assets.addBundle('fonts', [{
             //     alias: 'CasualCursive',

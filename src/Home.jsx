@@ -7,7 +7,10 @@ import { NavLink } from 'react-router-dom';
 function Home(){
     const navigate = useNavigate();
     function launchGame(){
-        document.body.requestFullscreen();
+        try{
+            document.body.requestFullscreen();
+        }
+        catch{}
         navigate('/game');
     }
     return (
@@ -24,8 +27,8 @@ function Home(){
                         Club Mysterio
                     </p>
                 </div>
-                <button onClick={() => launchGame()}>
-                    <span id="playButton">Play</span>
+                <button id="playButton" onClick={() => launchGame()}>
+                    <span >Play</span>
                 </button> 
             </div>
         </>

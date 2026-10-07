@@ -1,4 +1,4 @@
-import { AnimatedSprite, Container, Graphics } from "pixi.js";
+import { AnimatedSprite, Container, FillGradient, Graphics, Sprite } from "pixi.js";
 import { GameObject } from "../gamecore/GameObject";
 import { Vector2D } from "../gamecore/Vector2D";
 import { MenuButton } from "./MenuButton";
@@ -16,15 +16,33 @@ class PasscodeScreen extends GameObject{
     changedTiles = [];
     submitReady = true;
 
-    constructor(context, eyeData, tileData, hagathaData){
+    constructor(context, eyeData, tileData, hagathaData, danceBackground){
         super(context, new Vector2D(0, 0,), new Vector2D(0, 0));
         this.eyeData = eyeData;
         this.hagathaData = hagathaData;
         this.passcodeContainer = new Container();
+        let danceFloor = new Sprite(GetTexture('/assets/Dance_Floor.png'));
+        let danceLightsTexture = GetTexture(danceBackground.sprite);
+        this.danceLightsSprite = new AnimatedSprite(danceLightsTexture.animations[danceBackground.default]);
+        this.danceLightsSprite.loop = danceBackground.loop;
+        this.danceLightsSprite.animationSpeed = danceBackground.speed;
+        this.danceLightsSprite.gotoAndStop(0);
+        let backgroundGradient = new FillGradient({
+            end: {x: 0, y: 1},
+            colorStops: [
+                {
+                    offset: 0, color: 0x423021
+                },
+                {
+                    offset: 0.9, color: 'black'
+                }
+            ]
+        })
         let background = new Graphics();
         background.rect(0, 0, this.context.app.canvas.width, this.context.app.canvas.height);
-        background.fill('black');
+        background.fill(backgroundGradient);
         this.passcodeContainer.addChild(background);
+        this.passcodeContainer.addChild(danceFloor);
 
         this.hagathaEyeTexture = GetTexture(this.eyeData.sprite);
         this.hagathaEye = new AnimatedSprite(this.hagathaEyeTexture.animations[this.eyeData.default]);
@@ -36,13 +54,15 @@ class PasscodeScreen extends GameObject{
             this.hagathaEye.gotoAndPlay(0);
         }
         this.hagathaEye.play();
-        this.passcodeContainer.addChild(this.hagathaEye);
 
         this.danceTexture = GetTexture(this.hagathaData.sprite);
         this.hagathaDance = new AnimatedSprite(this.danceTexture.animations[this.hagathaData.default]);
         this.hagathaDance.scale = 6;
         this.hagathaDance.visible = false;
+
         this.passcodeContainer.addChild(this.hagathaDance);
+        this.passcodeContainer.addChild(this.danceLightsSprite);
+        this.passcodeContainer.addChild(this.hagathaEye);
 
         this.danceTileCollections = [];
         this.danceTileContainer = new Container();
@@ -68,11 +88,13 @@ class PasscodeScreen extends GameObject{
         this.submitButton.setPosition((this.context.app.canvas.width / 2) - (this.submitButton.width / 2), 
             this.backButton.y - this.submitButton.height);
         this.danceTileContainer.position.set((this.context.app.canvas.width / 2) - (this.danceTileContainer.width / 2),
-            this.submitButton.y - this.danceTileContainer.height);
-
-        let hagathaEyeBottom = this.hagathaEye.y + this.hagathaEye.height;
+            this.submitButton.y - this.danceTileContainer.height - 5);
+        danceFloor.position.set((this.context.app.canvas.width / 2) - (this.danceLightsSprite.width / 2),
+            (this.danceTileContainer.y - danceFloor.height - 10))
+        this.danceLightsSprite.position.set((this.context.app.canvas.width / 2) - (this.danceLightsSprite.width / 2),
+            (danceFloor.y + danceFloor.height - this.danceLightsSprite.height - 20));
         this.hagathaDance.position.set((this.context.app.canvas.width / 2) - (this.hagathaDance.width / 2),
-            (hagathaEyeBottom) + ((this.danceTileContainer.y - hagathaEyeBottom) / 2) - this.hagathaDance.height / 2);
+            (danceFloor.y + danceFloor.height - this.hagathaDance.height - 20));
         
         this.passcodeContainer.visible = false;
         this.context.app.stage.addChild(this.passcodeContainer);
@@ -156,6 +178,7 @@ class PasscodeScreen extends GameObject{
                     }
                     this.hagathaDance.gotoAndPlay(0);
                 }
+                this.danceLightsSprite.play();
             }
         }
     }

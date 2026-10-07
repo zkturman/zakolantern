@@ -28,7 +28,11 @@ class IntroScreen extends GameObject{
         this.screen.addChild(this.lines);
         let style = BaseParagraphStyle();
         style.fill = 'white';
-        style.fontSize = 24;
+        style.fontSize = 22;
+        if (this.context.app.canvas.height < 700){
+            style.fontSize = 20;
+        }
+
         style.wordWrapWidth = this.context.app.canvas.width * 0.9;
 
         for (let i = 0; i < this.intro.length; i++){

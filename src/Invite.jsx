@@ -7,21 +7,20 @@ function Invite(){
             body: [
                 <p className='body-text-color story-body'>
                     This year's theme is <strong>Monster Nightclub</strong>! Become a 
-                    monster for the night as 
-                    you embark a journey to Club Mysterio. Your first night at Club Mysterio 
-                    has just ended. I bet it was a blast getting to hang with Arturo and Boris.
-                    That Boris sure is a talker.
+                    monster for the night as you return to Club Mysterio. You're first 
+                    time at Club Mysterio was so fun you don't even remember it. If you had a blast 
+                    getting to hang with Arturo and Boris, there's even more in store next time.
                 </p>,
                 <p className='body-text-color story-body'>
                     Since you're last visit, the club has been infested with an evil spirit. 
                     The witch Hagatha has asked you and your friends to help rid the club of 
                     its presence. 'It's no good for business, you see' was the only reason she 
-                    gave. But why couldn't she ask someone else?
+                    gave. But why couldn't she ask someone (or anyone) else?
                 </p>,
                 <p className='body-text-color story-body'>
-                    No matter. No one turns down a request (or demand, really) from Hagatha.  
-                    Release your inner monster as you spend one more night at the monsters-only nightclub
-                    with your best ghoul friends. Maybe this quest can turn into a fun night if your survive.
+                    No matter. No one turns down a demand from Hagatha.  
+                    Release your inner monster to squash evil with your best ghoul friends. 
+                    Hey, if you survive, maybe it'll actualy be fun.
                 </p>
             ]
         },

@@ -212,10 +212,14 @@ class PasscodeScreen extends GameObject{
         for (let i = 0; i < this.danceTileCollections.length; i++){
             this.danceTileCollections[i].ResetColor();
         }
+        this.context.danceTheme.stop();
+        this.context.mainTheme.play();
     }
 
     show(){
         this.passcodeContainer.visible = true;
+        this.context.mainTheme.stop();
+        this.context.danceTheme.play();
     }
 
     update(secondsPassed){

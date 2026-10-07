@@ -43,6 +43,8 @@ function OutsideClub(){
                 controllerKey: 'keyboard',
                 code: ["yellow", "pink", "yellow", "blue"],
                 endGameEvent: () => navigate('/2026/invite'),
+                mainTheme: new Howl({src: ['/assets/OutsideClub.wav'], loop: true, volume: 0.3, preload: true}),
+                danceTheme: new Howl({src: ['/assets/ClubMysterio.wav'], loop: true, volume: 0.4, preload: true})
             };
 
             let clubOverworld = {
@@ -113,11 +115,6 @@ function OutsideClub(){
             let introScreen = new IntroScreen(context);
             context.gameObjects.push(introScreen);
 
-            // Assets.addBundle('fonts', [{
-            //     alias: 'CasualCursive',
-            //     src: "/assets/CasualCursive.ttf"
-            // }]);
-            // await Assets.loadBundle('fonts');
             app.ticker.add((time) => {
                 for (let i = 0; i < context.gameObjects.length; i++){
                     if (!context.gameObjects[i].isDestroyed && context.gameObjects[i].isEnabled){
@@ -126,6 +123,7 @@ function OutsideClub(){
                     }
                 }
             });
+            context.mainTheme.play();
             appRef.current = app;
             // themeMusicRef.current = new Howl({src: [JournalTheme], loop: true, volume: 0.2, preload: true});
             // themeMusicRef.current.play();

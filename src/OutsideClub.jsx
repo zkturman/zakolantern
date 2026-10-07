@@ -110,8 +110,8 @@ function OutsideClub(){
             context.dialog = new DialogTemplate(context);
             context.gameObjects.push(context.dialog);
 
-            // let introScreen = new IntroScreen(context);
-            // context.gameObjects.push(introScreen);
+            let introScreen = new IntroScreen(context);
+            context.gameObjects.push(introScreen);
 
             // Assets.addBundle('fonts', [{
             //     alias: 'CasualCursive',

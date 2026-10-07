@@ -24,7 +24,6 @@ function OutsideClub(){
         async function init(){
             loadingRef.current = true;
             const app = new Application();
-            Cache.reset();
             await app.init({backgroundColor: 'black', resizeTo: containerRef.current});
             Howler.stop();
             containerRef.current.appendChild(app.canvas);

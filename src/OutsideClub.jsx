@@ -2,7 +2,6 @@ import {Application, Assets, TilingSprite} from 'pixi.js'
 import { useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { OverworldCharacter } from './gamemodules/OverworldCharacter.js';
-import { JournalSfx, JournalTheme } from './data/assetkeys.js';
 import { Howl } from 'howler';
 import './OutsideClub.css';
 import { Vector2D } from './gamecore/Vector2D.js';
@@ -18,12 +17,6 @@ function OutsideClub(){
     const containerRef = useRef(null);
     const appRef = useRef(null);
     const loadingRef = useRef(false);
-    const pageSounds = JournalSfx.map(asset => new Howl({
-        src: [asset],
-        volumen: 1.0
-    }));
-    const themeMusicRef = useRef(null);
-    const location = useLocation();
 
     useEffect(() => {
         if (loadingRef.current) return;
@@ -32,6 +25,7 @@ function OutsideClub(){
             loadingRef.current = true;
             const app = new Application();
             await app.init({backgroundColor: 'black', resizeTo: containerRef.current});
+            Howler.stop();
             containerRef.current.appendChild(app.canvas);
             
               let context = {
@@ -125,8 +119,6 @@ function OutsideClub(){
             });
             context.mainTheme.play();
             appRef.current = app;
-            // themeMusicRef.current = new Howl({src: [JournalTheme], loop: true, volume: 0.2, preload: true});
-            // themeMusicRef.current.play();
         }
 
         init();
@@ -139,16 +131,10 @@ function OutsideClub(){
         };
     }, []);
 
-    useEffect(() => {
-        return () => {
-            themeMusicRef.current?.stop();
-        };
-    }, [location]);
-
     return(
         <>
             <div
-                id="journal-container"
+                id="game-container"
                 ref={containerRef} 
             />
         </>

@@ -174,6 +174,7 @@ class PasscodeScreen extends GameObject{
                 this.hagathaDance.play();
                 this.hagathaDance.onComplete = () => {
                     this.hagathaDance.onComplete = () => {
+                        this.context.danceTheme.stop();
                         this.context.endGameEvent();
                     }
                     this.hagathaDance.gotoAndPlay(0);

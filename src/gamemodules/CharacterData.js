@@ -50,7 +50,7 @@ const BorisHelpful = {
         "Hagatha no like Boris, but Boris think he like you.",
         "Code not hard, just need tricks.",
         "Pink is up because pink is hot.",
-        "Yellow is happy, and happy is right. Yellow mean up.",
+        "Yellow is happy, and happy is right. Yellow mean right.",
         "And blue left. She left and now Boris blue.",
         "Boris wish Boris was happy...",
         "That how Boris remember dance."
